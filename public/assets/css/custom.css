@@ -1,0 +1,29 @@
+.btn-orange {
+    background-color: #ED3D05;
+    color: #FFFFFF;
+}
+
+.btn-orange:hover {
+    color: #FFFFFF;
+}
+
+.btn-orange:hover:not(:disabled):not(.disabled) {
+    opacity: 0.9;
+}
+
+/*.header.header-fixed{*/
+/*    z-index: 3000!important;*/
+/*}*/
+
+.actions .cell{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 5px;
+
+}
+.actions .cell .el-button{
+    margin: 0;
+}
+.el-select{
+    display: block!important;
+}

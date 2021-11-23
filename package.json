@@ -1,0 +1,26 @@
+{
+  "name": "admin.diagram",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons": "^0.0.11",
+    "axios": "^0.24.0",
+    "element-plus": "^1.2.0-beta.3",
+    "eslint": "^8.2.0",
+    "eslint-plugin-vue": "^8.1.1",
+    "moment": "^2.29.1",
+    "sass": "^1.43.4",
+    "vue": "^3.2.16",
+    "vue-router": "4",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.9.4",
+    "@vue/compiler-sfc": "^3.2.22",
+    "vite": "^2.6.4"
+  }
+}
