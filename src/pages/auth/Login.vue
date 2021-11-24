@@ -13,7 +13,7 @@
         <div class="d-flex flex-center mb-15">
           <a href="#">
             <img
-              src="logo.png"
+              src="/logo.png"
               class="max-h-75px"
               alt=""
             >
@@ -81,8 +81,6 @@
 import {reactive, onMounted} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
-import axios from "axios";
-import api from "../../services/api";
 
 const store = useStore();
 const router = useRouter();
