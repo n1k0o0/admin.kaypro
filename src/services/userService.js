@@ -10,8 +10,8 @@ export default {
   },
 
   ENTITY_TYPES: {
-    'true' : 'Да',
-    'false': 'Нет',
+    0: 'Да',
+    1: 'Нет',
   },
 
   ENTITY_STATUSES: {
@@ -44,16 +44,16 @@ export default {
     return api.get(ENDPOINT, { params })
   },
 
-  removeUser(id) {
+  removeUser (id) {
     return api.delete(`${ENDPOINT}/${id}`)
   },
 
-  getUser(id) {
+  getUser (id) {
     return api.get(`${ENDPOINT}/${id}`)
   },
 
-  updateUser(id,data) {
-    return api.put(`${ENDPOINT}/${id}`,data)
+  updateUser (id, data) {
+    return api.put(`${ENDPOINT}/${id}`, data)
   },
 
   prepareList (list) {

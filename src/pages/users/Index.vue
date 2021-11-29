@@ -95,31 +95,31 @@
           />
           <el-table-column
             prop="first_name"
-            label="Name"
+            label="Имя"
             sortable="custom"
           />
           <el-table-column
             prop="last_name"
-            label="Surname"
+            label="Фамилия"
             sortable="custom"
           />
           <el-table-column
             prop="address"
-            label="Address"
+            label="Адресс"
           />
           <el-table-column
             prop="phone"
-            label="Phone"
+            label="Номер"
             sortable="custom"
           />
           <el-table-column
             prop="email"
-            label="Email"
+            label="Почта"
             width="120"
             sortable="custom"
           />
           <el-table-column
-            label="Entity"
+            label="Ю.Л."
             width="75"
             prop="entity"
             sortable="custom"
@@ -130,37 +130,33 @@
           </el-table-column>
           <el-table-column
             prop="entity_name"
-            label="Entity Name"
+            label="Наименование компании"
             width="75"
           />
           <el-table-column
             prop="itn"
-            label="ITN"
+            label="ИНН"
             width="120"
           />
           <el-table-column
             prop="psrn"
-            label="PSRN"
+            label="ОГРН"
             width="120"
           />
           <el-table-column
-            prop="entity_name"
-            label="Entity Name"
-          />
-          <el-table-column
             prop="entity_address"
-            label="Entity address"
+            label="Юридический адрес"
           />
           <el-table-column
             prop="entity_status"
-            label="Entity status"
+            label="Статус проверки юрлица"
           >
             <template #default="scope">
               {{ userService.getUserEntityStatus(scope.row.entity_status) }}
             </template>
           </el-table-column>
           <el-table-column
-            label="Status"
+            label="Статус"
             sortable="custom"
             prop="status"
           >
@@ -170,10 +166,10 @@
           </el-table-column>
           <el-table-column
             prop="price_type"
-            label="Price type"
+            label="Вид цены"
           />
           <el-table-column
-            label="Updated date"
+            label="Дата изменения"
             width="120"
             sortable="custom"
             prop="updated_at"

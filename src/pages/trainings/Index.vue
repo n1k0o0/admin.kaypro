@@ -7,18 +7,17 @@
             <i class="flaticon2-user-outline-symbol text-primary" />
           </span>
           <h3 class="card-label">
-            Менеджеры
-            <small>внутренние пользователи</small>
+            Курсы
+            <small>обучение</small>
           </h3>
         </div>
         <div
-          v-if="auth.type==='admin'"
           class="card-toolbar"
         >
           <a
             href="#"
             class="btn btn-sm btn-success font-weight-bold"
-            @click="$router.push({name: 'internal-users-create'})"
+            @click="$router.push({name: 'trainings-create'})"
           >
             <i class="flaticon2-add-square" /> Добавить
           </a>
@@ -26,46 +25,35 @@
       </div>
       <div class="card-body">
         <div class="row align-items-end">
-          <div class="col-2">
+          <div class="col-3">
             <BaseInput
-              v-model="data.first_name"
+              v-model="data.name"
               clearable
               :label="'Имя'"
-              @input="searchInternalUsers"
+              @input="searchTrainings"
             />
           </div>
-          <div class="col-2">
-            <BaseInput
-              v-model="data.last_name"
-              clearable
-              :label="'Фамилия'"
-              @input="searchInternalUsers"
-            />
-          </div>
-          <div class="col-2">
-            <BaseInput
-              v-model="data.email"
-              clearable
-              :label="'Email'"
-              @input="searchInternalUsers"
-            />
-          </div>
-          <div class="col-2">
-            <BaseInput
-              v-model="data.phone"
-              clearable
-              :label="'Телефон'"
-              @input="searchInternalUsers"
-            />
+          <div class="col-3">
+            <div class="form-group">
+              <label>Дата</label>
+              <el-date-picker
+                v-model="data.date"
+                type="date"
+                placeholder="Выбериту дату"
+                format="YYYY/MM/DD"
+                value-format="YYYY-MM-DD"
+                @change="searchTrainings"
+              />
+            </div>
           </div>
         </div>
       </div>
       <div class="card-footer">
         <el-table
           v-loading="loading"
-          :data="users"
+          :data="trainings"
           :empty-text="'Нет данных'"
-          @sort-change="sortUser"
+          @sort-change="sortTrainings"
         >
           <el-table-column
             prop="id"
@@ -74,43 +62,46 @@
             sortable="custom"
           />
           <el-table-column
-            prop="first_name"
-            label="Имя"
+            prop="name"
+            label="Название"
             sortable="custom"
           />
           <el-table-column
-            prop="last_name"
-            label="Фамилия"
+            prop="date"
+            label="Дата"
             sortable="custom"
           />
           <el-table-column
-            prop="phone"
-            label="Номер"
+            prop="lecturer"
+            label="ФИО лектора"
             sortable="custom"
           />
           <el-table-column
-            prop="email"
-            label="Почта"
-            width="120"
+            prop="seats"
+            label="Количество мест"
             sortable="custom"
           />
           <el-table-column
-            label="Тип"
+            prop="empty_seats"
+            label="Количество свободных мест"
             sortable="custom"
-            prop="type"
+          />
+          <el-table-column
+            label="Статус"
+            sortable="custom"
+            prop="status"
           >
             <template #default="scope">
-              {{ internalUserService.getUserType(scope.row.type) }}
+              {{ trainingService.getTrainingStatus(scope.row.status) }}
             </template>
           </el-table-column>
           <el-table-column
-            label="Дата изменения"
-            width="120"
+            prop="is_visible"
+            label="Видимость"
             sortable="custom"
-            prop="updated_at"
           >
             <template #default="scope">
-              {{ $moment(scope.row.updated_at).format('DD-mm-YYYY HH:mm') }}
+              {{ trainingService.getTrainingVisibility(scope.row.is_visible) }}
             </template>
           </el-table-column>
           <el-table-column
@@ -120,17 +111,15 @@
           >
             <template #default="scope">
               <el-button
-                v-if="auth.type==='admin'"
                 :icon="Edit"
                 type="primary"
-                @click="$router.push({name: 'internal-users-edit', params: {id: scope.row.id}})"
+                @click="$router.push({name: 'trainings-edit', params: {id: scope.row.id}})"
               />
               <el-popconfirm
-                v-if="scope.row.type==='moderator'"
                 cancel-button-text="Отмена"
                 confirm-button-text="Да"
                 title="Вы действительно хотите удалить игру?"
-                @confirm="deleteUser(scope.row)"
+                @confirm="deleteTraining(scope.row)"
               >
                 <template #reference>
                   <el-button
@@ -157,68 +146,56 @@
 </template>
 
 <script setup>
-import { Edit, Delete }                       from '@element-plus/icons'
-import BaseInput                              from '@/components/base/BaseInput.vue'
-import usePagination                          from '@/composables/usePagination'
+import { Edit, Delete }             from '@element-plus/icons'
+import BaseInput                    from '@/components/base/BaseInput.vue'
+import usePagination                from '@/composables/usePagination'
 
 const { pagination, setPagination, currentPage } = usePagination()
-import { computed, onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 const store = useStore()
-import internalUserService                    from '@/services/internalUserService'
-import { useStore }                           from 'vuex'
+import trainingService              from '@/services/trainingService'
+import { useStore }                 from 'vuex'
 
-let loading = ref(false)
-let users   = ref([])
+let loading   = ref(false)
+let trainings = ref([])
 
 let data = reactive({
-  phone     : '',
-  email     : '',
-  last_name : '',
+  date      : '',
   first_name: '',
-  updated_at: '',
-  type      : '',
-  patronymic: '',
-  address   : '',
 })
 
 onMounted(async () => {
-  await searchInternalUsers()
+  await searchTrainings()
 })
+
 const onCurrentPageUpdated = async (page) => {
   currentPage.value = page
-  await searchInternalUsers()
+  await searchTrainings()
 }
-const searchInternalUsers  = async () => {
+const searchTrainings      = async () => {
   try {
-    console.log(4444)
-    loading.value                             = true
-    const { data: { data: usersData, meta } } = await internalUserService.loadUsers(data, currentPage.value, 10)
-    users.value                               = usersData
+    loading.value                                 = true
+    const { data: { data: trainingsData, meta } } = await trainingService.loadTraining(data, currentPage.value, 10)
+    trainings.value                               = trainingsData
     setPagination(meta)
   } catch (e) {
-
+    console.log(e)
   } finally {
     loading.value = false
   }
 }
 
-const sortUser   = async (obj) => {
+const sortTrainings = async (obj) => {
   data.sort      = obj.prop
   data.sort_type = obj.order === 'ascending' ? 'asc' : obj.order === 'descending' ? 'desc' : ''
-  await searchInternalUsers()
-}
-const deleteUser = async (user) => {
-  console.log(user)
-  const {} = await internalUserService.removeUser(user.id)
-  await searchInternalUsers()
+  await searchTrainings()
 }
 
-const auth = computed(() => store.getters['auth/GET_USER'])
+const deleteTraining = async (training) => {
+  const {} = await trainingService.removeTraining(training.id)
+  await searchTrainings()
+}
 
 </script>
 
-
-<style scoped>
-
-</style>

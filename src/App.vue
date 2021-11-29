@@ -46,8 +46,6 @@ const store = useStore();
 onMounted(async () => {
   if (!store.getters['auth/IS_AUTH']) {
     await router.push({name: 'auth'})
-  } else {
-    await store.dispatch('auth/GET_USER')
   }
 })
 

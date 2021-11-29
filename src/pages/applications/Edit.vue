@@ -14,43 +14,36 @@
       </div>
       <div class="card-body">
         <div class="row align-items-end">
-          <div class="col-2">
+          <div class="col-xs-6 col-md-6 col-lg-3">
             <BaseInput
-              v-model="user.first_name"
+              v-model="application.user_name"
               clearable
-              :label="'Имя'"
+              :label="'ФИО'"
             />
           </div>
-          <div class="col-2">
+          <div class="col-xs-6 col-md-6 col-lg-3">
             <BaseInput
-              v-model="user.last_name"
-              clearable
-              :label="'Фамилия'"
-            />
-          </div>
-          <div class="col-2">
-            <BaseInput
-              v-model="user.email"
+              v-model="application.email"
               clearable
               :label="'Email'"
             />
           </div>
-          <div class="col-2">
+          <div class="col-xs-6 col-md-6 col-lg-3">
             <BaseInput
-              v-model="user.phone"
+              v-model="application.phone"
               clearable
-              :label="'Телефон'"
+              :label="'Phone'"
             />
           </div>
-          <div class="col-2">
+          <div class="col-xs-6 col-md-6 col-lg-3">
             <div class="form-group">
-              <label>Тип</label>
+              <label>Статус</label>
               <el-select
-                v-model="user.type"
+                v-model="application.status"
                 placeholder="Select"
               >
                 <el-option
-                  v-for="(item,key) in internalUserService.USER_TYPES"
+                  v-for="(item,key) in applicationService.APPLICATION_STATUSES"
                   :key="key"
                   :label="item"
                   :value="key"
@@ -62,12 +55,12 @@
       </div>
       <div class="card-footer d-flex justify-content-end">
         <el-button-group>
-          <el-button @click="$router.push({name: 'internal-users'})">
+          <el-button @click="$router.push({name: 'applications'})">
             Отменить
           </el-button>
           <el-button
             type="primary"
-            @click="updateUser"
+            @click="updateApplication"
           >
             Обновить
           </el-button>
@@ -80,42 +73,41 @@
 <script setup>
 import BaseInput                    from '@/components/base/BaseInput.vue'
 import usePagination                from '@/composables/usePagination'
-import internalUserService          from '@/services/internalUserService'
+import applicationService           from '@/services/applicationService'
 import { useStore }                 from 'vuex'
 
 const { pagination, setPagination, currentPage } = usePagination()
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter }      from 'vue-router'
 
 const router = useRouter()
 const route  = useRoute()
 const store  = useStore()
 
-let loading = ref(false)
-let user    = ref({
-  type      : '',
-  phone     : '',
+let loading     = ref(false)
+let application = ref({
+  status    : '',
+  user_name : '',
   email     : '',
-  last_name : '',
-  updated_at: '',
-  first_name: '',
+  phone: '',
 })
-
-const auth = computed(() => store.getters['auth/GET_USER'])
 
 onMounted(async () => {
-  if (auth.value.type !== 'admin') {
-    await router.push({ name: 'dashboard' })
-  }
-  const { data: userData } = await internalUserService.getUser(route.params.id)
-  user.value               = userData
+  const { data: userData } = await applicationService.getApplication(route.params.id)
+  application.value        = userData
 })
 
-const updateUser = async () => {
-  const {} = await internalUserService.updateUser(route.params.id, user.value)
-  await router.push({ name: 'internal-users' })
+const updateApplication = async () => {
+  const {} = await applicationService.updateApplication(route.params.id, application.value)
+  await router.push({ name: 'applications' })
 }
 
+const handleLogoChanged = (file) => {
+  application.value.logo = file.raw
+}
+const handleLogoRemoved = async () => {
+  application.value.logo = null
+}
 </script>
 
 

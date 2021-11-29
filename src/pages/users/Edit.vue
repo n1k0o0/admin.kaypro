@@ -39,7 +39,7 @@
             <BaseInput
               v-model="user.email"
               clearable
-              :label="'Email'"
+              :label="'Почта'"
             />
           </div>
           <div class="col-3">
@@ -144,14 +144,26 @@ import { computed, onMounted, ref } from 'vue'
 import userService             from '@/services/userService'
 import { useRoute, useRouter } from 'vue-router'
 
-const route = useRoute()
+const route  = useRoute()
 const router = useRouter()
-let loading = ref(false)
-let users   = ref([])
+let loading  = ref(false)
+let user     = ref({
+  status        : '',
+  entity_status : '',
+  entity_address: '',
+  psrn          : '',
+  itn           : '',
+  entity_name   : '',
+  entity        : '',
+  address       : '',
+  phone         : '',
+  email         : '',
+  patronymic    : '',
+  last_name     : '',
+  first_name    : '',
+})
 
-let user = ref({})
 const auth = computed(() => store.getters['auth/GET_USER'])
-
 
 onMounted(async () => {
   const { data: userData } = await userService.getUser(route.params.id)
@@ -159,8 +171,8 @@ onMounted(async () => {
 })
 
 const updateUser = async () => {
-  const {} = await userService.updateUser(route.params.id,user.value)
-  await router.push({name: 'users'});
+  const {} = await userService.updateUser(route.params.id, user.value)
+  await router.push({ name: 'users' })
 }
 
 </script>

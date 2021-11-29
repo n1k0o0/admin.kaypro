@@ -85,34 +85,38 @@
 </template>
 
 <script setup>
-import BaseInput           from '@/components/base/BaseInput.vue'
-import usePagination       from '@/composables/usePagination'
-import internalUserService from '@/services/internalUserService'
-import { useStore }        from 'vuex'
+import BaseInput                    from '@/components/base/BaseInput.vue'
+import usePagination                from '@/composables/usePagination'
+import internalUserService          from '@/services/internalUserService'
+import { useStore }                 from 'vuex'
+
 const { pagination, setPagination, currentPage } = usePagination()
 import { computed, onMounted, ref } from 'vue'
 import { useRouter }                from 'vue-router'
+
 const router = useRouter()
-const store = useStore();
-
-
-
+const store  = useStore()
 
 let loading = ref(false)
-let user    = ref({ })
-
+let user    = ref({
+  password  : '',
+  type      : '',
+  phone     : '',
+  email     : '',
+  last_name : '',
+  first_name: '',
+})
 
 const createInternalUser = async () => {
   console.log(user.value)
-  const {}=await internalUserService.createUser(user.value)
-  await router.push({name: 'internal-users'});
+  const {} = await internalUserService.createUser(user.value)
+  await router.push({ name: 'internal-users' })
 }
-const auth = computed(() => store.getters['auth/GET_USER'])
-
+const auth               = computed(() => store.getters['auth/GET_USER'])
 
 onMounted(async () => {
-  if (auth.value.type!=='admin') {
-    await router.push({name: 'dashboard'})
+  if (auth.value.type !== 'admin') {
+    await router.push({ name: 'dashboard' })
   }
 })
 </script>
