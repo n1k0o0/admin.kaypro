@@ -1,27 +1,18 @@
 import api from './api'
 
-const ENDPOINT = '/trainings'
+const ENDPOINT = '/news'
 export default {
 
-  TRAINING_STATUSES  : {
-    'planned'  : 'Планируется',
-    'continues': 'Идет сейчас',
-    'completed': 'Проведен',
-  },
   TRAINING_VISIBILITY: {
     0: 'Невидим',
     1: 'Видим',
   },
 
-  getTrainingStatus (type) {
-    return this.TRAINING_STATUSES[type]
-  },
-
-  getTrainingVisibility (type) {
+  getNewsVisibility (type) {
     return this.TRAINING_VISIBILITY[type]
   },
 
-  loadTraining (search, page = null, limit = null) {
+  loadNews (search, page = null, limit = null) {
     let params = {
       ...search,
     }
@@ -32,32 +23,19 @@ export default {
     return api.get(ENDPOINT, { params })
   },
 
-  createTraining (data) {
-    const formData = new FormData()
-    Object.keys(data).forEach(function (key) {
-      formData.append(`${key}`, data[key])
-    })
-
-    return api.post(ENDPOINT, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-  },
-
-  removeTraining (id) {
+  removeNews(id) {
     return api.delete(`${ENDPOINT}/${id}`)
   },
 
-  getTraining (id) {
+  getNews(id) {
     return api.get(`${ENDPOINT}/${id}`)
   },
 
-  updateTraining (id, data) {
+  updateNews(id,data) {
     const formData = new FormData()
     formData.append('_method','PUT')
     Object.keys(data).forEach(function (key) {
-      if (!(data[key] instanceof File) && key==='logo') {
+      if (!(data[key] instanceof File) && key==='logo' && data[key]!=='' && data[key]!==null) {
         console.log(data[key])
         return
       }
@@ -71,4 +49,29 @@ export default {
     })
   },
 
+  createNews(data) {
+    const formData = new FormData()
+    Object.keys(data).forEach(function (key) {
+      formData.append(`${key}`, data[key])
+    })
+
+    return api.post(ENDPOINT, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+  },
+
+  prepareList (list) {
+    let result = []
+
+    for (let i in list) {
+      result.push({
+        'id'   : i,
+        'value': list[i],
+      })
+    }
+
+    return result
+  },
 }

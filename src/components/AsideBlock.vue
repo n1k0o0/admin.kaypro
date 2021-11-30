@@ -34,11 +34,9 @@
           <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-left.svg-->
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
             width="24px"
             height="24px"
             viewBox="0 0 24 24"
-            version="1.1"
           >
             <g
               stroke="none"
@@ -102,11 +100,9 @@
               <span class="svg-icon menu-icon">
                 <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/General/User.svg--><svg
                   xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
                   width="24px"
                   height="24px"
                   viewBox="0 0 24 24"
-                  version="1.1"
                 >
                   <g
                     stroke="none"
@@ -146,11 +142,9 @@
               <span class="svg-icon menu-icon">
                 <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/General/User.svg--><svg
                   xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
                   width="24px"
                   height="24px"
                   viewBox="0 0 24 24"
-                  version="1.1"
                 >
                   <g
                     stroke="none"
@@ -194,11 +188,9 @@
             >
               <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Devices/iPhone-X.svg--><svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="24px"
                 height="24px"
                 viewBox="0 0 24 24"
-                version="1.1"
               >
                 <g
                   stroke="none"
@@ -239,11 +231,9 @@
             >
               <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Devices/iPhone-X.svg--><svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="24px"
                 height="24px"
                 viewBox="0 0 24 24"
-                version="1.1"
               >
                 <g
                   stroke="none"
@@ -291,11 +281,9 @@
             >
               <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Devices/iPhone-X.svg--><svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="24px"
                 height="24px"
                 viewBox="0 0 24 24"
-                version="1.1"
               >
                 <g
                   stroke="none"
@@ -343,11 +331,9 @@
             >
               <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Devices/iPhone-X.svg--><svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="24px"
                 height="24px"
                 viewBox="0 0 24 24"
-                version="1.1"
               >
                 <g
                   stroke="none"
@@ -388,11 +374,9 @@
             >
               <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Devices/iPhone-X.svg--><svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="24px"
                 height="24px"
                 viewBox="0 0 24 24"
-                version="1.1"
               >
                 <g
                   stroke="none"
@@ -429,9 +413,9 @@
             <i class="menu-icon ki ki-bold-more-hor icon-md" />
           </li>
           <router-link
-            to
+            :to="{name: 'news'}"
             class="menu-item"
-            :class="{'menu-item-active': $route.path === '/posts'}"
+            :class="{'menu-item-active': $route.path === '/news'}"
             tag="li"
           >
             <a
@@ -440,11 +424,9 @@
             >
               <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Devices/iPhone-X.svg--><svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="24px"
                 height="24px"
                 viewBox="0 0 24 24"
-                version="1.1"
               >
                 <g
                   stroke="none"

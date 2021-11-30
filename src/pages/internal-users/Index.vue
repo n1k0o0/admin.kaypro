@@ -191,7 +191,6 @@ const onCurrentPageUpdated = async (page) => {
 }
 const searchInternalUsers  = async () => {
   try {
-    console.log(4444)
     loading.value                             = true
     const { data: { data: usersData, meta } } = await internalUserService.loadUsers(data, currentPage.value, 10)
     users.value                               = usersData
