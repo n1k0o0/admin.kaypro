@@ -7,8 +7,8 @@
             <i class="flaticon2-user-outline-symbol text-primary" />
           </span>
           <h3 class="card-label">
-            Менеджеры
-            <small>внутренние пользователи</small>
+            Модераторы
+            <small>пользователи</small>
           </h3>
         </div>
         <div

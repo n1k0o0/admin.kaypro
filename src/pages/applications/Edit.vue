@@ -7,8 +7,8 @@
             <i class="flaticon2-user-outline-symbol text-primary" />
           </span>
           <h3 class="card-label">
-            Создание
-            <small>Менеджер</small>
+            Обновление
+            <small>заявка</small>
           </h3>
         </div>
       </div>

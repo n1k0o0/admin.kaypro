@@ -70,7 +70,11 @@
             prop="date"
             label="Дата"
             sortable="custom"
-          />
+          >
+            <template #default="scope">
+              {{ $moment(scope.row.date).format('DD-M-YYYY') }}
+            </template>
+          </el-table-column>
           <el-table-column
             prop="lecturer"
             label="ФИО лектора"

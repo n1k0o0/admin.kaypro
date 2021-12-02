@@ -60,7 +60,7 @@
 
 import {useRoute} from "vue-router";
 import {useStore} from 'vuex'
-import {onMounted, computed} from "vue";
+import {computed} from "vue";
 
 const route = useRoute();
 const store = useStore();
@@ -68,7 +68,7 @@ const store = useStore();
 const routeName = computed(() => {
   const routes = {
     '/users': 'Клиенты',
-    '/internal-users': 'Менеджеры',
+    '/internal-users': 'Модераторы',
   }
   return routes[route.path]
 })

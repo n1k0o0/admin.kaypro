@@ -8,7 +8,7 @@
           </span>
           <h3 class="card-label">
             Обновление
-            <small>Менеджер</small>
+            <small>обучение</small>
           </h3>
         </div>
       </div>

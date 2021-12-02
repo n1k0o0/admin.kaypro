@@ -167,7 +167,7 @@
                   </g>
                 </svg><!--end::Svg Icon-->
               </span>
-              <span class="menu-text">Менеджеры</span>
+              <span class="menu-text">Модераторы</span>
             </a>
           </router-link>
           <li class="menu-section">

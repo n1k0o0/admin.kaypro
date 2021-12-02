@@ -8,7 +8,7 @@
           </span>
           <h3 class="card-label">
             Создание
-            <small>Менеджер</small>
+            <small>новость</small>
           </h3>
         </div>
       </div>
