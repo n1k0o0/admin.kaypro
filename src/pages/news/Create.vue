@@ -14,14 +14,14 @@
       </div>
       <div class="card-body">
         <div class="row align-items-end">
-          <div class="col-3">
+          <div class="col-12">
             <BaseInput
               v-model="news.title"
               clearable
               :label="'Заголовок'"
             />
           </div>
-          <div class="col-3">
+          <div class="col-12">
             <div class="form-group">
               <label>Тип</label>
               <el-select
@@ -37,7 +37,7 @@
               </el-select>
             </div>
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <div class="form-group">
               <label>Дата и время публикации</label>
               <el-date-picker
@@ -50,7 +50,7 @@
               />
             </div>
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <div class="form-group">
               <label>Фото</label>
               <single-image-uploader
@@ -133,10 +133,11 @@ const createInternalUser = async () => {
 }
 
 const handleLogoChanged = (file) => {
-  news.value.logo = file.raw
+  news.value.logo_upload = file.raw
 }
 const handleLogoRemoved = async () => {
-  news.value.logo = null
+  news.value.logo = ''
+  news.value.logo_upload = ''
 }
 </script>
 

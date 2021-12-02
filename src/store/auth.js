@@ -39,7 +39,7 @@ const mutations = {
     state.authorized = true
   },
 
-  CLEAR_USER (state, payload) {
+  CLEAR_USER (state) {
     localStorage.removeItem('user')
     localStorage.removeItem('token')
     state.user = null
@@ -59,7 +59,7 @@ const actions = {
       })
   },
 
-  async GET_USER ({ commit, state }, payload) {
+  async GET_USER ({ commit },) {
     const user = {
       'id'   : '',
       'first_name' : '',
@@ -82,9 +82,10 @@ const actions = {
     commit('SET_USER', payload)
   },
 
-  async LOGOUT ({ commit, state }) {
+  async LOGOUT ({ commit }) {
     await api.post('/logout')
       .then(() => {
+        commit('CLEAR_USER')
         window.location.href = '/login'
       })
   },

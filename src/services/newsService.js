@@ -36,7 +36,6 @@ export default {
     formData.append('_method','PUT')
     Object.keys(data).forEach(function (key) {
       if (!(data[key] instanceof File) && key==='logo' && data[key]!=='' && data[key]!==null) {
-        console.log(data[key])
         return
       }
       formData.append(`${key}`, data[key])

@@ -14,21 +14,25 @@
       </div>
       <div class="card-body">
         <div class="row align-items-end">
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
+            <h3>Общее</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
             <BaseInput
               v-model="user.name"
               clearable
               :label="'Наименование'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <BaseInput
-              v-model="user.location"
+              v-model="user.city"
               clearable
-              :label="'Место проведения'"
+              :label="'Город'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <div class="form-group">
               <label>Дата и время проведения</label>
               <el-date-picker
@@ -40,35 +44,63 @@
               />
             </div>
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.duration"
               clearable
               :label="'Длительность'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.price"
               clearable
               :label="'Стоимость'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
+            <div class="form-group">
+              <label>Фото</label>
+              <single-image-uploader
+                :hide-upload-icon="!!user.logo"
+                :image="user.logo"
+                :on-change="handleLogoChanged"
+                :on-remove="handleLogoRemoved"
+              />
+            </div>
+          </div>
+
+          <el-divider />
+          <div class="col-12">
+            <h3>Программа</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
+            <div class="form-group">
+              <label>Описание</label>
+              <el-input
+                v-model="user.description"
+                :autosize="{ minRows: 3 }"
+                type="textarea"
+                placeholder="Не больше 4096 символов"
+              />
+            </div>
+          </div>
+          <div class="col-12">
             <BaseInput
-              v-model="user.lecturer"
+              v-model="user.location"
               clearable
-              :label="'ФИО лектора'"
+              :label="'Место проведения'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.seats"
               clearable
               :label="'Количество мест всего'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <div class="form-group">
               <label>Статус</label>
               <el-select
@@ -84,7 +116,7 @@
               </el-select>
             </div>
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <div class="form-group">
               <label>Признак видимости</label>
               <el-select
@@ -101,39 +133,84 @@
             </div>
           </div>
 
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <el-divider />
+          <div class="col-12">
+            <h3>Спикер</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
+            <BaseInput
+              v-model="user.lecturer"
+              clearable
+              :label="'ФИО лектора'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="user.lecturer_position"
+              clearable
+              :label="'Должность лектора'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="user.lecturer_description"
+              type="textarea"
+              clearable
+              :label="'Описание лектора'"
+            />
+          </div>
+          <div class="col-12">
             <div class="form-group">
               <label>Фото</label>
               <single-image-uploader
-                :hide-upload-icon="!!user.logo"
-                :image="user.logo"
-                :on-change="handleLogoChanged"
-                :on-remove="handleLogoRemoved"
+                :hide-upload-icon="!!user.lecturer_avatar"
+                :image="user.lecturer_avatar"
+                :on-change="handleLecturerAvatarChanged"
+                :on-remove="handleLecturerAvatarRemoved"
               />
             </div>
           </div>
 
+          <el-divider />
           <div class="col-12">
-            <div class="form-group">
-              <label>Описание</label>
-              <editor
-                v-model="user.description"
-                maxlength="4096"
-                rows="4"
-                placeholder="Не больше 4096 символов"
-                api-key="no-api-key"
-                :init="{
-                  language: 'ru',
-                  height: 500,
-                  menubar: false,
-                  plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount'
-                  ],
-                  toolbar:
-                    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
-                }"
+            <h3>Дни обучения</h3>
+          </div>
+          <el-divider />
+          <div class="col-12 mb-4">
+            <el-button
+              type="primary"
+              :icon="Plus"
+              @click="addDay"
+            >
+              Добавить
+            </el-button>
+          </div>
+          <div
+            v-for="(day,index) in user.days"
+            :key="day.desc"
+            class="row col-12 align-items-center"
+          >
+            <div class="col-4">
+              <BaseInput
+                v-model="day.name"
+                clearable
+                :label="'Название'"
+              />
+            </div>
+            <div class="col-6">
+              <BaseInput
+                v-model="day.content"
+                type="textarea"
+                clearable
+                :label="'Описание'"
+              />
+            </div>
+            <div class="col-2">
+              <el-button
+                :icon="Delete"
+                type="danger"
+                @click="deleteDay(index)"
               />
             </div>
           </div>
@@ -157,34 +234,41 @@
 </template>
 
 <script setup>
-import BaseInput                    from '@/components/base/BaseInput.vue'
-import usePagination                from '@/composables/usePagination'
-import trainingService              from '@/services/trainingService'
-import { useStore }                 from 'vuex'
-import Editor                       from '@tinymce/tinymce-vue'
+import BaseInput           from '@/components/base/BaseInput.vue'
+import usePagination       from '@/composables/usePagination'
+import trainingService     from '@/services/trainingService'
+import { useStore }        from 'vuex'
+import { Plus, Delete }    from '@element-plus/icons'
+
+// import Editor              from '@tinymce/tinymce-vue'
 
 const { pagination, setPagination, currentPage } = usePagination()
-import { ref } from 'vue'
-import { useRouter }                from 'vue-router'
-import SingleImageUploader          from '@/components/base/SingleImageUploader.vue'
+import { ref }             from 'vue'
+import { useRouter }       from 'vue-router'
+import SingleImageUploader from '@/components/base/SingleImageUploader.vue'
 
 const router = useRouter()
 const store  = useStore()
 
 let loading = ref(false)
 let user    = ref({
-  status     : '',
-  name       : '',
-  description: '',
-  location   : '',
-  date       : '',
-  duration   : '',
-  price      : '',
-  seats      : '',
-  lecturer   : '',
-  logo       : '',
-  empty_seats: '',
-  is_visible : '',
+  status              : '',
+  name                : '',
+  description         : '',
+  location            : '',
+  date                : '',
+  duration            : '',
+  price               : '',
+  seats               : '',
+  lecturer            : '',
+  logo                : '',
+  empty_seats         : '',
+  is_visible          : '',
+  lecturer_position   : '',
+  lecturer_avatar     : '',
+  lecturer_description: '',
+  city                : '',
+  days                : [],
 })
 
 const createTraining = async () => {
@@ -193,10 +277,26 @@ const createTraining = async () => {
 }
 
 const handleLogoChanged = (file) => {
-  user.value.logo = file.raw
+  user.value.logo_upload = file.raw
 }
 const handleLogoRemoved = async () => {
-  user.value.logo = null
+  user.value.logo_upload = ''
+  user.value.logo = ''
+}
+
+const handleLecturerAvatarChanged = (file) => {
+  user.value.lecturer_avatar_upload = file.raw
+}
+const handleLecturerAvatarRemoved = async () => {
+  user.value.lecturer_avatar_upload = ''
+  user.value.lecturer_avatar = ''
+}
+const addDay                      = async () => {
+  user.value.days.push({ name: '', content: '' })
+}
+
+const deleteDay = (index) => {
+  user.value.days.splice(index, 1)
 }
 </script>
 

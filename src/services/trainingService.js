@@ -35,7 +35,11 @@ export default {
   createTraining (data) {
     const formData = new FormData()
     Object.keys(data).forEach(function (key) {
-      formData.append(`${key}`, data[key])
+      if (key === 'days') {
+        formData.append(`${key}`, JSON.stringify(data[key]))
+      } else {
+        formData.append(`${key}`, data[key])
+      }
     })
 
     return api.post(ENDPOINT, formData, {
@@ -55,13 +59,17 @@ export default {
 
   updateTraining (id, data) {
     const formData = new FormData()
-    formData.append('_method','PUT')
+    formData.append('_method', 'PUT')
     Object.keys(data).forEach(function (key) {
-      if (!(data[key] instanceof File) && key==='logo') {
-        console.log(data[key])
+      if (!(data[key] instanceof File) && (key === 'logo_upload' || (key === 'lecturer_avatar_upload' && data[key]!=='' && data[key]!==null))) {
         return
       }
-      formData.append(`${key}`, data[key])
+      if (key === 'days') {
+        formData.append(`${key}`, JSON.stringify(data[key]))
+      } else {
+        formData.append(`${key}`, data[key])
+      }
+
     })
 
     return api.post(`${ENDPOINT}/${id}`, formData, {

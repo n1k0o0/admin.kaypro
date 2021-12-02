@@ -14,21 +14,26 @@
       </div>
       <div class="card-body">
         <div class="row align-items-end">
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
+            <h3>Общее</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
             <BaseInput
               v-model="training.name"
               clearable
               :label="'Наименование'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <BaseInput
-              v-model="training.location"
+              v-model="training.city"
               clearable
-              :label="'Место проведения'"
+              :label="'Город'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+
+          <div class="col-12">
             <div class="form-group">
               <label>Дата и время проведения</label>
               <el-date-picker
@@ -40,42 +45,72 @@
               />
             </div>
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <BaseInput
               v-model="training.duration"
               clearable
               :label="'Длительность'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <BaseInput
               v-model="training.price"
               clearable
               :label="'Стоимость'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+
+
+          <div class="col-12">
+            <div class="form-group">
+              <label>Фото</label>
+              <single-image-uploader
+                :hide-upload-icon="!!training.logo"
+                :image="training.logo"
+                :on-change="handleLogoChanged"
+                :on-remove="handleLogoRemoved"
+              />
+            </div>
+          </div>
+
+          <el-divider />
+          <div class="col-12">
+            <h3>Программа</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
             <BaseInput
-              v-model="training.lecturer"
+              v-model="training.location"
               clearable
-              :label="'ФИО лектора'"
+              :label="'Место проведения'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
+            <div class="form-group">
+              <label>Описание</label>
+              <el-input
+                v-model="training.description"
+                :autosize="{ minRows: 3 }"
+                type="textarea"
+                placeholder="Не больше 4096 символов"
+              />
+            </div>
+          </div>
+          <div class="col-12">
             <BaseInput
               v-model="training.seats"
               clearable
               :label="'Количество мест всего'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <BaseInput
               v-model="training.empty_seats"
               clearable
               :label="'Количество свободных мест'"
             />
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <div class="form-group">
               <label>Статус</label>
               <el-select
@@ -91,7 +126,7 @@
               </el-select>
             </div>
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <div class="col-12">
             <div class="form-group">
               <label>Признак видимости</label>
               <el-select
@@ -108,39 +143,84 @@
             </div>
           </div>
 
-          <div class="col-xs-6 col-md-6 col-lg-3">
+          <el-divider />
+          <div class="col-12">
+            <h3>Спикер</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
+            <BaseInput
+              v-model="training.lecturer"
+              clearable
+              :label="'ФИО лектора'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="training.lecturer_position"
+              clearable
+              :label="'Должность лектора'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="training.lecturer_description"
+              type="textarea"
+              clearable
+              :label="'Описание лектора'"
+            />
+          </div>
+          <div class="col-12">
             <div class="form-group">
               <label>Фото</label>
               <single-image-uploader
-                :hide-upload-icon="!!training.logo"
-                :image="training.logo"
-                :on-change="handleLogoChanged"
-                :on-remove="handleLogoRemoved"
+                :hide-upload-icon="!!training.lecturer_avatar"
+                :image="training.lecturer_avatar"
+                :on-change="handleLecturerAvatarChanged"
+                :on-remove="handleLecturerAvatarRemoved"
               />
             </div>
           </div>
 
+          <el-divider />
           <div class="col-12">
-            <div class="form-group">
-              <label>Описание</label>
-              <editor
-                v-model="training.description"
-                maxlength="4096"
-                rows="4"
-                placeholder="Не больше 4096 символов"
-                api-key="no-api-key"
-                :init="{
-                  language: 'ru',
-                  height: 500,
-                  menubar: false,
-                  plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount'
-                  ],
-                  toolbar:
-                    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
-                }"
+            <h3>Дни обучения</h3>
+          </div>
+          <el-divider />
+          <div class="col-12 mb-4">
+            <el-button
+              type="primary"
+              :icon="Plus"
+              @click="addDay"
+            >
+              Добавить
+            </el-button>
+          </div>
+          <div
+            v-for="(day,index) in training.days"
+            :key="day.desc"
+            class="row col-12 align-items-center"
+          >
+            <div class="col-4">
+              <BaseInput
+                v-model="day.name"
+                clearable
+                :label="'Название'"
+              />
+            </div>
+            <div class="col-6">
+              <BaseInput
+                v-model="day.content"
+                clearable
+                type="textarea"
+                :label="'Описание'"
+              />
+            </div>
+            <div class="col-2">
+              <el-button
+                :icon="Delete"
+                type="danger"
+                @click="deleteDay(index)"
               />
             </div>
           </div>
@@ -164,13 +244,13 @@
 </template>
 
 <script setup>
-import BaseInput                    from '@/components/base/BaseInput.vue'
-import SingleImageUploader          from '@/components/base/SingleImageUploader.vue'
-import trainingService              from '@/services/trainingService'
-import { useStore }                 from 'vuex'
-import { computed, onMounted, ref } from 'vue'
-import { useRoute, useRouter }      from 'vue-router'
-import Editor                       from '@tinymce/tinymce-vue'
+import BaseInput               from '@/components/base/BaseInput.vue'
+import SingleImageUploader     from '@/components/base/SingleImageUploader.vue'
+import trainingService         from '@/services/trainingService'
+import { useStore }            from 'vuex'
+import { onMounted, ref }      from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { Plus, Delete }        from '@element-plus/icons'
 
 const router = useRouter()
 const route  = useRoute()
@@ -178,21 +258,24 @@ const store  = useStore()
 
 let loading  = ref(false)
 let training = ref({
-  status     : '',
-  name       : '',
-  description: '',
-  location   : '',
-  date       : '',
-  duration   : '',
-  price      : '',
-  seats      : '',
-  lecturer   : '',
-  logo       : '',
-  empty_seats: '',
-  is_visible : '',
+  status              : '',
+  name                : '',
+  description         : '',
+  location            : '',
+  date                : '',
+  duration            : '',
+  price               : '',
+  seats               : '',
+  lecturer            : '',
+  logo                : '',
+  empty_seats         : '',
+  is_visible          : '',
+  lecturer_avatar     : '',
+  lecturer_description: '',
+  lecturer_position   : '',
+  city                : '',
+  days                : [],
 })
-
-const auth = computed(() => store.getters['auth/GET_USER'])
 
 onMounted(async () => {
   const { data: userData } = await trainingService.getTraining(route.params.id)
@@ -204,11 +287,27 @@ const updateUser = async () => {
   await router.push({ name: 'trainings' })
 }
 
-const handleLogoChanged = (file) => {
-  training.value.logo = file.raw
+const handleLogoChanged           = (file) => {
+  training.value.logo_upload = file.raw
 }
-const handleLogoRemoved = async () => {
-  training.value.logo = ''
+const handleLogoRemoved           = async () => {
+  training.value.logo_upload = ''
+  training.value.logo        = ''
+}
+const handleLecturerAvatarChanged = (file) => {
+  training.value.lecturer_avatar_upload = file.raw
+}
+const handleLecturerAvatarRemoved = async () => {
+  training.value.lecturer_avatar_upload = ''
+  training.value.lecturer_avatar        = ''
+}
+
+const deleteDay = (index) => {
+  training.value.days.splice(index, 1)
+}
+
+const addDay = async () => {
+  training.value.days.push({ name: '', content: '' })
 }
 </script>
 
