@@ -14,35 +14,35 @@
       </div>
       <div class="card-body">
         <div class="row align-items-end">
-          <div class="col-2">
+          <div class="col-12">
             <BaseInput
               v-model="user.first_name"
               clearable
               :label="'Имя'"
             />
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <BaseInput
               v-model="user.last_name"
               clearable
               :label="'Фамилия'"
             />
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <BaseInput
               v-model="user.email"
               clearable
               :label="'Email'"
             />
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <BaseInput
               v-model="user.phone"
               clearable
               :label="'Телефон'"
             />
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <div class="form-group">
               <label>Тип</label>
               <el-select

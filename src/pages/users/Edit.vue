@@ -14,42 +14,42 @@
       </div>
       <div class="card-body">
         <div class="row align-items-end">
-          <div class="col-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.first_name"
               clearable
               :label="'Имя'"
             />
           </div>
-          <div class="col-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.last_name"
               clearable
               :label="'Фамилия'"
             />
           </div>
-          <div class="col-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.patronymic"
               clearable
               :label="'Отчество'"
             />
           </div>
-          <div class="col-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.email"
               clearable
               :label="'Почта'"
             />
           </div>
-          <div class="col-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.phone"
               clearable
               :label="'Телефон'"
             />
           </div>
-          <div class="col-3">
+          <div class="col-12">
             <BaseInput
               v-model="user.address"
               clearable
@@ -57,35 +57,35 @@
             />
           </div>
           <template v-if="user.entity">
-            <div class="col-3">
+            <div class="col-12">
               <BaseInput
                 v-model="user.entity_name"
                 clearable
                 :label="'Наименование компании'"
               />
             </div>
-            <div class="col-3">
+            <div class="col-12">
               <BaseInput
                 v-model="user.itn"
                 clearable
                 :label="'ИНН'"
               />
             </div>
-            <div class="col-3">
+            <div class="col-12">
               <BaseInput
                 v-model="user.psrn"
                 clearable
                 :label="'ОГРН'"
               />
             </div>
-            <div class="col-3">
+            <div class="col-12">
               <BaseInput
                 v-model="user.entity_address"
                 clearable
                 :label="'Юридический адрес'"
               />
             </div>
-            <div class="col-3">
+            <div class="col-12">
               <div class="form-group">
                 <label>Юридический статус</label>
                 <el-select
@@ -101,7 +101,7 @@
                 </el-select>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-12">
               <div class="form-group">
                 <label>Статус</label>
                 <el-select

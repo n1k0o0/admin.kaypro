@@ -34,13 +34,13 @@
           </div>
           <div class="col-12">
             <div class="form-group">
-              <label>Дата и время проведения</label>
+              <label>Дата проведения</label>
               <el-date-picker
                 v-model="user.date"
                 format="DD-MM-YYYY"
                 value-format="YYYY-MM-DD"
                 clearable
-                :label="'Дата и время проведения'"
+                :label="'Дата проведения'"
               />
             </div>
           </div>
@@ -90,7 +90,7 @@
             <BaseInput
               v-model="user.location"
               clearable
-              :label="'Место проведения'"
+              :label="'Место проведения (полный адрес)'"
             />
           </div>
           <div class="col-12">
@@ -135,45 +135,6 @@
 
           <el-divider />
           <div class="col-12">
-            <h3>Спикер</h3>
-          </div>
-          <el-divider />
-          <div class="col-12">
-            <BaseInput
-              v-model="user.lecturer"
-              clearable
-              :label="'ФИО лектора'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
-              v-model="user.lecturer_position"
-              clearable
-              :label="'Должность лектора'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
-              v-model="user.lecturer_description"
-              type="textarea"
-              clearable
-              :label="'Описание лектора'"
-            />
-          </div>
-          <div class="col-12">
-            <div class="form-group">
-              <label>Фото</label>
-              <single-image-uploader
-                :hide-upload-icon="!!user.lecturer_avatar"
-                :image="user.lecturer_avatar"
-                :on-change="handleLecturerAvatarChanged"
-                :on-remove="handleLecturerAvatarRemoved"
-              />
-            </div>
-          </div>
-
-          <el-divider />
-          <div class="col-12">
             <h3>Дни обучения</h3>
           </div>
           <el-divider />
@@ -211,6 +172,45 @@
                 :icon="Delete"
                 type="danger"
                 @click="deleteDay(index)"
+              />
+            </div>
+          </div>
+
+          <el-divider />
+          <div class="col-12">
+            <h3>Спикер</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
+            <BaseInput
+              v-model="user.lecturer"
+              clearable
+              :label="'ФИО лектора'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="user.lecturer_position"
+              clearable
+              :label="'Должность лектора'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="user.lecturer_description"
+              type="textarea"
+              clearable
+              :label="'Описание лектора'"
+            />
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Фото</label>
+              <single-image-uploader
+                :hide-upload-icon="!!user.lecturer_avatar"
+                :image="user.lecturer_avatar"
+                :on-change="handleLecturerAvatarChanged"
+                :on-remove="handleLecturerAvatarRemoved"
               />
             </div>
           </div>

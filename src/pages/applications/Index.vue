@@ -18,7 +18,7 @@
             <BaseInput
               v-model="data.name"
               clearable
-              :label="'Имя'"
+              :label="'Название обучения'"
               @input="searchTrainings"
             />
           </div>

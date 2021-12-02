@@ -29,7 +29,7 @@
             <BaseInput
               v-model="data.name"
               clearable
-              :label="'Имя'"
+              :label="'Название обучения'"
               @input="searchTrainings"
             />
           </div>
@@ -39,7 +39,7 @@
               <el-date-picker
                 v-model="data.date"
                 type="date"
-                placeholder="Выбериту дату"
+                placeholder="Выберите дату"
                 format="YYYY/MM/DD"
                 value-format="YYYY-MM-DD"
                 @change="searchTrainings"
