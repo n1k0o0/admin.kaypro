@@ -13,13 +13,22 @@
     action="#"
     list-type="picture-card"
   >
-    <i class="el-icon-plus avatar-uploader-icon" />
+    <el-icon
+      class="avatar-uploader-icon"
+    >
+      <plus />
+    </el-icon>
   </el-upload>
 </template>
 
 <script>
+import {Plus} from '@element-plus/icons'
+
 export default {
   name: "SingleImageUploader",
+  components:{
+    Plus
+  },
   props: {
     image: {
       type: Object,
@@ -42,7 +51,7 @@ export default {
       required: true,
       type: Function,
     },
-  },
+  }
 }
 </script>
 

@@ -234,41 +234,39 @@
 </template>
 
 <script setup>
-import BaseInput           from '@/components/base/BaseInput.vue'
-import usePagination       from '@/composables/usePagination'
-import trainingService     from '@/services/trainingService'
-import { useStore }        from 'vuex'
-import { Plus, Delete }    from '@element-plus/icons'
-
-// import Editor              from '@tinymce/tinymce-vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import usePagination from '@/composables/usePagination'
+import trainingService from '@/services/trainingService'
+import { useStore } from 'vuex'
+import { Plus, Delete } from '@element-plus/icons'
 
 const { pagination, setPagination, currentPage } = usePagination()
-import { ref }             from 'vue'
-import { useRouter }       from 'vue-router'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import SingleImageUploader from '@/components/base/SingleImageUploader.vue'
 
 const router = useRouter()
-const store  = useStore()
+const store = useStore()
 
 let loading = ref(false)
-let user    = ref({
-  status              : '',
-  name                : '',
-  description         : '',
-  location            : '',
-  date                : '',
-  duration            : '',
-  price               : '',
-  seats               : '',
-  lecturer            : '',
-  logo                : '',
-  empty_seats         : '',
-  is_visible          : '',
-  lecturer_position   : '',
-  lecturer_avatar     : '',
+let user = ref({
+  status: '',
+  name: '',
+  description: '',
+  location: '',
+  date: '',
+  duration: '',
+  price: '',
+  seats: '',
+  lecturer: '',
+  logo: '',
+  empty_seats: '',
+  is_visible: '',
+  lecturer_position: '',
+  lecturer_avatar: '',
   lecturer_description: '',
-  city                : '',
-  days                : [],
+  city: '',
+  days: [],
 })
 
 const createTraining = async () => {
@@ -291,7 +289,7 @@ const handleLecturerAvatarRemoved = async () => {
   user.value.lecturer_avatar_upload = ''
   user.value.lecturer_avatar = ''
 }
-const addDay                      = async () => {
+const addDay = async () => {
   user.value.days.push({ name: '', content: '' })
 }
 

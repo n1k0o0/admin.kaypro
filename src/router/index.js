@@ -15,6 +15,7 @@ import ApplicationEdit     from '@/pages/applications/Edit.vue'
 import News                from '@/pages/news/Index.vue'
 import NewsEdit            from '@/pages/news/Edit.vue'
 import NewsCreate          from '@/pages/news/Create.vue'
+import Pages         from '@/pages/pages/Index.vue'
 
 const routes = [
   { path: '/', name: 'dashboard', component: Index },
@@ -67,6 +68,11 @@ const routes = [
     path     : '/news-create',
     name     : 'news-create',
     component: NewsCreate,
+  },
+  {
+    path     : '/pages',
+    name     : 'pages',
+    component: Pages,
   },
 ]
 

@@ -79,7 +79,7 @@
               <el-popconfirm
                 cancel-button-text="Отмена"
                 confirm-button-text="Да"
-                title="Вы действительно хотите удалить игру?"
+                title="Вы действительно хотите удалить заявку?"
                 @confirm="deleteTraining(scope.row)"
               >
                 <template #reference>

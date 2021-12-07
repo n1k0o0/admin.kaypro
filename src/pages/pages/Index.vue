@@ -1,0 +1,79 @@
+<template>
+  <div class="container-fluid">
+    <div class="card card-custom">
+      <div class="card-header">
+        <div class="card-title">
+          <h3 class="card-label">
+            Страницы
+          </h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <el-tabs
+          v-model="activeName"
+        >
+          <el-tab-pane
+            label="О компании"
+            name="about"
+          >
+            <About
+              :about="abouts"
+            />
+          </el-tab-pane>
+          <el-tab-pane
+            label="Контакты"
+            name="contacts"
+          >
+            <Contacts :contact="contacts" />
+          </el-tab-pane>
+          <el-tab-pane
+            label="Помошь"
+            name="help"
+          >
+            <Help :help="helps" />
+          </el-tab-pane>
+          <el-tab-pane
+            label="Документы"
+            name="documents"
+          >
+            <Documents :document="documents" />
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import About from '@/pages/pages/About.vue'
+import Contacts from '@/pages/pages/Contacts.vue'
+import Help from '@/pages/pages/Help.vue'
+import Documents from '@/pages/pages/Documents.vue'
+import pagesService from '@/services/pagesService'
+
+import { onMounted, ref } from 'vue'
+
+const store = useStore()
+import { useStore } from 'vuex'
+
+let loading = ref(false)
+let activeName = ref('about')
+let abouts = ref({})
+let contacts = ref({})
+let documents = ref({})
+let helps = ref({})
+onMounted(async () => {
+  const { data: dataPages } = await pagesService.loadPages()
+  abouts.value = dataPages.filter(el => el.name === 'about')[0]
+  contacts.value = dataPages.filter(el => el.name === 'contact')[0]
+  helps.value = dataPages.filter(el => el.name === 'help')[0]
+  documents.value = dataPages.filter(el => el.name === 'document')[0]
+})
+
+</script>
+
+<style>
+.el-tabs__content {
+  overflow: inherit !important;
+}
+</style>
