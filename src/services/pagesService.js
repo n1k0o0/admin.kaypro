@@ -27,7 +27,7 @@ export default {
     const formData = new FormData()
     formData.append('_method','PUT')
     Object.keys(data).forEach(function (key) {
-      if(data[key]==='null'){
+      if(data[key]==='null' || data[key]===null) {}{
         data[key]=''
       }
       if (!(data[key] instanceof File) && (key==='logo' || key==='contentImage_1' || key==='contentImage_2') && data[key]!=='' && data[key]!==null) {
