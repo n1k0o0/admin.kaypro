@@ -27,7 +27,7 @@ export default {
     const formData = new FormData()
     formData.append('_method','PUT')
     Object.keys(data).forEach(function (key) {
-      if((data[key]==='null' || data[key]===null) && !(data[key] instanceof Object)) {}{
+      if(data[key]==='null' || data[key]===null) {
         data[key]=''
       }
       if (!(data[key] instanceof File) && (key==='logo' || key==='contentImage_1' || key==='contentImage_2') && data[key]!=='' && data[key]!==null) {
@@ -62,16 +62,4 @@ export default {
     })
   },
 
-  prepareList (list) {
-    let result = []
-
-    for (let i in list) {
-      result.push({
-        'id'   : i,
-        'value': list[i],
-      })
-    }
-
-    return result
-  },
 }

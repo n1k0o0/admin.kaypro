@@ -21,7 +21,7 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(undefined, (error) => {
-    let errorMessage=error.response.data.message
+    let errorMessage=error.response?.data?.message
 
     if (error.response && (error.response.status === 401 || error.response.status === 419)) {
         if (window.location.pathname !== '/login') {
@@ -49,7 +49,7 @@ api.interceptors.response.use(undefined, (error) => {
         return Promise.reject(error);
     }
 
-    if (error.response.data.errors){
+    if (error.response?.data?.errors){
         errorMessage=Object.values(error.response.data.errors).flat().toString()
     }
     ElNotification({type: 'error', title: 'Ошибка', message: errorMessage??'Нераспознання ошибка'})
