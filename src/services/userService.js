@@ -10,8 +10,8 @@ export default {
   },
 
   ENTITY_TYPES: {
-    0: 'Да',
-    1: 'Нет',
+    1: 'Да',
+    0: 'Нет',
   },
 
   ENTITY_STATUSES: {
