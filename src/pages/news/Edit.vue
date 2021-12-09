@@ -111,13 +111,6 @@
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="news.meta_slug"
-              clearable
-              :label="'SEO slug'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
               v-model="news.meta_image"
               clearable
               :label="'SEO image'"

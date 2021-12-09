@@ -94,7 +94,7 @@
               <el-button
                 :icon="Edit"
                 type="primary"
-                @click="$router.push({name: 'news-edit', params: {id: scope.row.id}})"
+                @click="$router.push({name: 'news-edit', params: {id: scope.row.meta_slug}})"
               />
               <el-popconfirm
                 cancel-button-text="Отмена"
@@ -177,7 +177,7 @@ const sorUsers   = async (obj) => {
   await searchNews()
 }
 const deleteNews = async (news) => {
-  const {} = await newsService.removeNews(news.id)
+  const {} = await newsService.removeNews(news.meta_slug)
   await searchNews()
 }
 

@@ -5,6 +5,7 @@
       :class="{'is-invalid': error}"
       :value="value"
       v-bind="$attrs"
+      :disabled="disabled"
       @input="updateInput"
     />
     <div
@@ -28,6 +29,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     hint: {
       type: String,
