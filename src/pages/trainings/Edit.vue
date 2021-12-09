@@ -224,6 +224,40 @@
               />
             </div>
           </div>
+
+          <el-divider />
+          <div class="col-12">
+            <h3>SEO</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
+            <BaseInput
+              v-model="training.meta_title"
+              clearable
+              :label="'SEO Title'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="training.meta_description"
+              clearable
+              :label="'SEO Description'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="training.meta_keywords"
+              clearable
+              :label="'SEO keywords'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="training.meta_image"
+              clearable
+              :label="'SEO image'"
+            />
+          </div>
         </div>
       </div>
       <div class="card-footer d-flex justify-content-end">
@@ -275,6 +309,10 @@ let training = ref({
   lecturer_position   : '',
   city                : '',
   days                : [],
+  meta_description: '',
+  meta_title: '',
+  meta_keywords: '',
+  meta_image: '',
 })
 
 onMounted(async () => {

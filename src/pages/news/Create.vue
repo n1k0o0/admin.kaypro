@@ -156,7 +156,6 @@ let news = ref({
   meta_description: '',
   meta_title: '',
   meta_keywords: '',
-  meta_slug: '',
   meta_image: '',
 })
 

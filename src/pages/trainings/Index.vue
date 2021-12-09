@@ -117,7 +117,7 @@
               <el-button
                 :icon="Edit"
                 type="primary"
-                @click="$router.push({name: 'trainings-edit', params: {id: scope.row.id}})"
+                @click="$router.push({name: 'trainings-edit', params: {id: scope.row.meta_slug}})"
               />
               <el-popconfirm
                 cancel-button-text="Отмена"
@@ -197,7 +197,7 @@ const sortTrainings = async (obj) => {
 }
 
 const deleteTraining = async (training) => {
-  const {} = await trainingService.removeTraining(training.id)
+  const {} = await trainingService.removeTraining(training.meta_slug)
   await searchTrainings()
 }
 

@@ -4,7 +4,7 @@
       <div class="card-header">
         <div class="card-title">
           <span class="card-icon">
-            <i class="flaticon2-user-outline-symbol text-primary" />
+            <i class="flaticon2-training-outline-symbol text-primary" />
           </span>
           <h3 class="card-label">
             Создание
@@ -20,14 +20,14 @@
           <el-divider />
           <div class="col-12">
             <BaseInput
-              v-model="user.name"
+              v-model="training.name"
               clearable
               :label="'Наименование'"
             />
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="user.city"
+              v-model="training.city"
               clearable
               :label="'Город'"
             />
@@ -36,7 +36,7 @@
             <div class="form-group">
               <label>Дата проведения</label>
               <el-date-picker
-                v-model="user.date"
+                v-model="training.date"
                 format="DD-MM-YYYY"
                 value-format="YYYY-MM-DD"
                 clearable
@@ -46,14 +46,14 @@
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="user.duration"
+              v-model="training.duration"
               clearable
               :label="'Длительность'"
             />
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="user.price"
+              v-model="training.price"
               clearable
               :label="'Стоимость'"
             />
@@ -62,8 +62,8 @@
             <div class="form-group">
               <label>Фото</label>
               <single-image-uploader
-                :hide-upload-icon="!!user.logo"
-                :image="user.logo"
+                :hide-upload-icon="!!training.logo"
+                :image="training.logo"
                 :on-change="handleLogoChanged"
                 :on-remove="handleLogoRemoved"
               />
@@ -79,7 +79,7 @@
             <div class="form-group">
               <label>Описание</label>
               <el-input
-                v-model="user.description"
+                v-model="training.description"
                 :autosize="{ minRows: 3 }"
                 type="textarea"
                 placeholder="Не больше 4096 символов"
@@ -88,14 +88,14 @@
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="user.location"
+              v-model="training.location"
               clearable
               :label="'Место проведения (полный адрес)'"
             />
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="user.seats"
+              v-model="training.seats"
               clearable
               :label="'Количество мест всего'"
             />
@@ -104,7 +104,7 @@
             <div class="form-group">
               <label>Статус</label>
               <el-select
-                v-model="user.status"
+                v-model="training.status"
                 placeholder="Select"
               >
                 <el-option
@@ -120,7 +120,7 @@
             <div class="form-group">
               <label>Признак видимости</label>
               <el-select
-                v-model="user.is_visible"
+                v-model="training.is_visible"
                 placeholder="Select"
               >
                 <el-option
@@ -148,7 +148,7 @@
             </el-button>
           </div>
           <div
-            v-for="(day,index) in user.days"
+            v-for="(day,index) in training.days"
             :key="day.desc"
             class="row col-12 align-items-center"
           >
@@ -183,21 +183,21 @@
           <el-divider />
           <div class="col-12">
             <BaseInput
-              v-model="user.lecturer"
+              v-model="training.lecturer"
               clearable
               :label="'ФИО лектора'"
             />
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="user.lecturer_position"
+              v-model="training.lecturer_position"
               clearable
               :label="'Должность лектора'"
             />
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="user.lecturer_description"
+              v-model="training.lecturer_description"
               type="textarea"
               clearable
               :label="'Описание лектора'"
@@ -207,12 +207,46 @@
             <div class="form-group">
               <label>Фото</label>
               <single-image-uploader
-                :hide-upload-icon="!!user.lecturer_avatar"
-                :image="user.lecturer_avatar"
+                :hide-upload-icon="!!training.lecturer_avatar"
+                :image="training.lecturer_avatar"
                 :on-change="handleLecturerAvatarChanged"
                 :on-remove="handleLecturerAvatarRemoved"
               />
             </div>
+          </div>
+
+          <el-divider />
+          <div class="col-12">
+            <h3>SEO</h3>
+          </div>
+          <el-divider />
+          <div class="col-12">
+            <BaseInput
+              v-model="training.meta_title"
+              clearable
+              :label="'SEO Title'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="training.meta_description"
+              clearable
+              :label="'SEO Description'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="training.meta_keywords"
+              clearable
+              :label="'SEO keywords'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="training.meta_image"
+              clearable
+              :label="'SEO image'"
+            />
           </div>
         </div>
       </div>
@@ -249,7 +283,7 @@ const router = useRouter()
 const store = useStore()
 
 let loading = ref(false)
-let user = ref({
+let training = ref({
   status: '',
   name: '',
   description: '',
@@ -267,37 +301,40 @@ let user = ref({
   lecturer_description: '',
   city: '',
   days: [],
+  meta_description: '',
+  meta_title: '',
+  meta_keywords: '',
+  meta_image: '',
 })
 
 const createTraining = async () => {
-  const {} = await trainingService.createTraining(user.value)
+  const {} = await trainingService.createTraining(training.value)
   await router.push({ name: 'trainings' })
 }
 
 const handleLogoChanged = (file) => {
-  user.value.logo_upload = file.raw
+  training.value.logo_upload = file.raw
 }
 const handleLogoRemoved = async () => {
-  user.value.logo_upload = ''
-  user.value.logo = ''
+  training.value.logo_upload = ''
+  training.value.logo = ''
 }
 
 const handleLecturerAvatarChanged = (file) => {
-  user.value.lecturer_avatar_upload = file.raw
+  training.value.lecturer_avatar_upload = file.raw
 }
 const handleLecturerAvatarRemoved = async () => {
-  user.value.lecturer_avatar_upload = ''
-  user.value.lecturer_avatar = ''
+  training.value.lecturer_avatar_upload = ''
+  training.value.lecturer_avatar = ''
 }
 const addDay = async () => {
-  user.value.days.push({ name: '', content: '' })
+  training.value.days.push({ name: '', content: '' })
 }
 
 const deleteDay = (index) => {
-  user.value.days.splice(index, 1)
+  training.value.days.splice(index, 1)
 }
 </script>
-
 
 <style scoped>
 
