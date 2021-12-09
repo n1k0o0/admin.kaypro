@@ -70,7 +70,11 @@
             prop="published_at"
             label="Дата и время публикации"
             sortable="custom"
-          />
+          >
+            <template #default="scope">
+              {{ $moment(scope.row.published_at).format('DD-MM-YYYY HH:mm') }}
+            </template>
+          </el-table-column>
           <el-table-column
             prop="author.first_name"
             label="Автор"

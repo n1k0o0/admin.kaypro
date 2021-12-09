@@ -110,7 +110,7 @@
             prop="updated_at"
           >
             <template #default="scope">
-              {{ $moment(scope.row.updated_at).format('DD-mm-YYYY HH:mm') }}
+              {{ $moment(scope.row.updated_at).format('DD-MM-YYYY HH:mm') }}
             </template>
           </el-table-column>
           <el-table-column
