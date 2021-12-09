@@ -87,6 +87,42 @@
               />
             </div>
           </div>
+
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_title"
+              clearable
+              :label="'SEO Title'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_description"
+              clearable
+              :label="'SEO Description'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_keywords"
+              clearable
+              :label="'SEO keywords'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_slug"
+              clearable
+              :label="'SEO slug'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_image"
+              clearable
+              :label="'SEO image'"
+            />
+          </div>
         </div>
       </div>
       <div class="card-footer d-flex justify-content-end">
@@ -107,31 +143,35 @@
 </template>
 
 <script setup>
-import BaseInput           from '@/components/base/BaseInput.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 import SingleImageUploader from '@/components/base/SingleImageUploader.vue'
-import newsService         from '@/services/newsService'
-import { useStore }        from 'vuex'
+import newsService from '@/services/newsService'
+import { useStore } from 'vuex'
 
-import { onMounted, ref }      from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import Editor                  from '@tinymce/tinymce-vue'
+import Editor from '@tinymce/tinymce-vue'
 
 const router = useRouter()
-const route  = useRoute()
-const store  = useStore()
+const route = useRoute()
+const store = useStore()
 
 let loading = ref(false)
-let news    = ref({
-  title       : '',
-  text        : '',
+let news = ref({
+  title: '',
+  text: '',
   published_at: '',
-  visibility  : '',
-  logo        : '',
+  visibility: '',
+  meta_description: '',
+  meta_title: '',
+  meta_keywords: '',
+  meta_slug: '',
+  meta_image: '',
 })
 
 onMounted(async () => {
   const { data: userData } = await newsService.getNews(route.params.id)
-  news.value               = userData
+  news.value = userData
 })
 
 const updateUser = async () => {

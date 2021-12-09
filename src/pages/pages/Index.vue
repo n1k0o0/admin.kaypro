@@ -27,7 +27,7 @@
             <Contacts :contact="contacts" />
           </el-tab-pane>
           <el-tab-pane
-            label="Помошь"
+            label="Помощь"
             name="help"
           >
             <Help :help="helps" />

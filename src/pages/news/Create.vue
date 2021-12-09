@@ -61,7 +61,6 @@
               />
             </div>
           </div>
-
           <div class="col-12">
             <div class="form-group">
               <label>Описание</label>
@@ -86,6 +85,42 @@
               />
             </div>
           </div>
+
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_title"
+              clearable
+              :label="'SEO Title'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_description"
+              clearable
+              :label="'SEO Description'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_keywords"
+              clearable
+              :label="'SEO keywords'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_slug"
+              clearable
+              :label="'SEO slug'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="news.meta_image"
+              clearable
+              :label="'SEO image'"
+            />
+          </div>
         </div>
       </div>
       <div class="card-footer d-flex justify-content-end">
@@ -106,25 +141,30 @@
 </template>
 
 <script setup>
-import Editor              from '@tinymce/tinymce-vue'
-import BaseInput           from '@/components/base/BaseInput.vue'
-import newsService         from '@/services/newsService'
+import Editor from '@tinymce/tinymce-vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import newsService from '@/services/newsService'
 import SingleImageUploader from '@/components/base/SingleImageUploader.vue'
-import { useStore }        from 'vuex'
+import { useStore } from 'vuex'
 
-import { ref }       from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const store  = useStore()
+const store = useStore()
 
 let loading = ref(false)
-let news    = ref({
-  title       : '',
-  visibility  : '',
-  text        : '',
+let news = ref({
+  title: '',
+  visibility: '',
+  text: '',
   published_at: '',
-  logo        : '',
+  logo: '',
+  meta_description: '',
+  meta_title: '',
+  meta_keywords: '',
+  meta_slug: '',
+  meta_image: '',
 })
 
 const createInternalUser = async () => {
