@@ -22,9 +22,7 @@
           v-for="(context,index) in helps.content"
           :key="index"
         >
-          <div
-            class="col-12"
-          >
+          <div class="col-12">
             <BaseInput
               v-model="context.title"
               clearable
@@ -54,6 +52,41 @@
                 }"
               />
             </div>
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="context.meta_title"
+              clearable
+              :label="'SEO Title'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="context.meta_description"
+              clearable
+              :label="'SEO Description'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="context.meta_keywords"
+              clearable
+              :label="'SEO keywords'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="context.meta_slug"
+              clearable
+              :label="'SEO slug'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="context.meta_image"
+              clearable
+              :label="'SEO image'"
+            />
           </div>
           <div class="col-12 mb-4">
             <el-button
@@ -163,17 +196,22 @@ const addContext = () => {
   helps.value.content.push({
     title: '',
     description: '',
+    meta_title: '',
+    meta_description: '',
+    meta_keywords: '',
+    meta_url: '',
+    meta_image: '',
   })
 }
 const deleteContext = (index) => {
   helps.value.content.splice(index, 1)
 }
 const updateHelp = async () => {
-  let check=helps.value.content.filter((el)=>{
-    return (el.title==='' && el.description==='')
+  let check = helps.value.content.filter((el) => {
+    return (el.title === '' && el.description === '')
   })
-  if (check.length){
-    ElNotification({type: 'error', title: 'Ошибка', message: 'Название и описание обязательны для заполнения'})
+  if (check.length) {
+    ElNotification({ type: 'error', title: 'Ошибка', message: 'Название и описание обязательны для заполнения' })
     return
   }
   await pagesService.updateAboutPage(helps.value.name, helps.value)
