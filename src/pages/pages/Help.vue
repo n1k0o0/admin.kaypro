@@ -76,13 +76,6 @@
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="context.meta_slug"
-              clearable
-              :label="'SEO slug'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
               v-model="context.meta_image"
               clearable
               :label="'SEO image'"
@@ -199,7 +192,6 @@ const addContext = () => {
     meta_title: '',
     meta_description: '',
     meta_keywords: '',
-    meta_url: '',
     meta_image: '',
   })
 }
@@ -208,7 +200,7 @@ const deleteContext = (index) => {
 }
 const updateHelp = async () => {
   let check = helps.value.content.filter((el) => {
-    return (el.title === '' && el.description === '')
+    return (el.title === '' || el.description === '')
   })
   if (check.length) {
     ElNotification({ type: 'error', title: 'Ошибка', message: 'Название и описание обязательны для заполнения' })
