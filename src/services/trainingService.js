@@ -12,6 +12,10 @@ export default {
     0: 'Невидим',
     1: 'Видим',
   },
+  TRAINING_ONLINE_STATUS: {
+    0: 'Оффлайн',
+    1: 'Онлайн',
+  },
 
   getTrainingStatus (type) {
     return this.TRAINING_STATUSES[type]

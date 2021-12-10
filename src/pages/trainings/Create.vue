@@ -143,6 +143,22 @@
               </el-select>
             </div>
           </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Формар мероприятия</label>
+              <el-select
+                v-model="training.is_online"
+                placeholder="Select"
+              >
+                <el-option
+                  v-for="(item,key) in trainingService.TRAINING_ONLINE_STATUS"
+                  :key="+key"
+                  :label="item"
+                  :value="+key"
+                />
+              </el-select>
+            </div>
+          </div>
 
           <el-divider />
           <div class="col-12">
@@ -307,6 +323,7 @@ let training = ref({
   logo: '',
   empty_seats: '',
   is_visible: '',
+  is_online: '',
   lecturer_position: '',
   lecturer_avatar: '',
   lecturer_description: '',
