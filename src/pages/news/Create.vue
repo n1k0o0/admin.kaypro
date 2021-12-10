@@ -63,6 +63,17 @@
           </div>
           <div class="col-12">
             <div class="form-group">
+              <label>Баннер</label>
+              <single-image-uploader
+                :hide-upload-icon="!!news.banner"
+                :image="news.banner"
+                :on-change="handleBannerChanged"
+                :on-remove="handleBannerRemoved"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
               <label>Описание</label>
               <editor
                 v-model="news.text"
@@ -153,6 +164,7 @@ let news = ref({
   text: '',
   published_at: '',
   logo: '',
+  banner: '',
   meta_description: '',
   meta_title: '',
   meta_keywords: '',
@@ -170,6 +182,13 @@ const handleLogoChanged = (file) => {
 const handleLogoRemoved = async () => {
   news.value.logo = ''
   news.value.logo_upload = ''
+}
+const handleBannerChanged = (file) => {
+  news.value.banner_upload = file.raw
+}
+const handleBannerRemoved = async () => {
+  news.value.banner_upload = ''
+  news.value.banner = ''
 }
 </script>
 

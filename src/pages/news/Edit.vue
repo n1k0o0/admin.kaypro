@@ -62,6 +62,17 @@
               />
             </div>
           </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Баннер</label>
+              <single-image-uploader
+                :hide-upload-icon="!!news.banner"
+                :image="news.banner"
+                :on-change="handleBannerChanged"
+                :on-remove="handleBannerRemoved"
+              />
+            </div>
+          </div>
 
           <div class="col-12">
             <div class="form-group">
@@ -160,6 +171,8 @@ let news = ref({
   meta_keywords: '',
   meta_slug: '',
   meta_image: '',
+  banner: '',
+  logo: '',
 })
 
 onMounted(async () => {
@@ -178,6 +191,14 @@ const handleLogoChanged = (file) => {
 const handleLogoRemoved = async () => {
   news.value.logo_upload = ''
   news.value.logo = ''
+}
+
+const handleBannerChanged = (file) => {
+  news.value.banner_upload = file.raw
+}
+const handleBannerRemoved = async () => {
+  news.value.banner_upload = ''
+  news.value.banner = ''
 }
 </script>
 
