@@ -69,6 +69,17 @@
               />
             </div>
           </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Баннер</label>
+              <single-image-uploader
+                :hide-upload-icon="!!training.banner"
+                :image="training.banner"
+                :on-change="handleBannerChanged"
+                :on-remove="handleBannerRemoved"
+              />
+            </div>
+          </div>
 
           <el-divider />
           <div class="col-12">
@@ -305,6 +316,7 @@ let training = ref({
   meta_title: '',
   meta_keywords: '',
   meta_image: '',
+  banner: '',
 })
 
 const createTraining = async () => {
@@ -327,6 +339,15 @@ const handleLecturerAvatarRemoved = async () => {
   training.value.lecturer_avatar_upload = ''
   training.value.lecturer_avatar = ''
 }
+
+const handleBannerChanged = (file) => {
+  training.value.banner_upload = file.raw
+}
+const handleBannerRemoved = async () => {
+  training.value.banner_upload = ''
+  training.value.banner = ''
+}
+
 const addDay = async () => {
   training.value.days.push({ name: '', content: '' })
 }

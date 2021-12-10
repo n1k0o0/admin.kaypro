@@ -60,7 +60,6 @@
             />
           </div>
 
-
           <div class="col-12">
             <div class="form-group">
               <label>Фото</label>
@@ -69,6 +68,17 @@
                 :image="training.logo"
                 :on-change="handleLogoChanged"
                 :on-remove="handleLogoRemoved"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Баннер</label>
+              <single-image-uploader
+                :hide-upload-icon="!!training.banner"
+                :image="training.banner"
+                :on-change="handleBannerChanged"
+                :on-remove="handleBannerRemoved"
               />
             </div>
           </div>
@@ -278,46 +288,47 @@
 </template>
 
 <script setup>
-import BaseInput               from '@/components/base/BaseInput.vue'
-import SingleImageUploader     from '@/components/base/SingleImageUploader.vue'
-import trainingService         from '@/services/trainingService'
-import { useStore }            from 'vuex'
-import { onMounted, ref }      from 'vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import SingleImageUploader from '@/components/base/SingleImageUploader.vue'
+import trainingService from '@/services/trainingService'
+import { useStore } from 'vuex'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { Plus, Delete }        from '@element-plus/icons'
+import { Plus, Delete } from '@element-plus/icons'
 
 const router = useRouter()
-const route  = useRoute()
-const store  = useStore()
+const route = useRoute()
+const store = useStore()
 
-let loading  = ref(false)
+let loading = ref(false)
 let training = ref({
-  status              : '',
-  name                : '',
-  description         : '',
-  location            : '',
-  date                : '',
-  duration            : '',
-  price               : '',
-  seats               : '',
-  lecturer            : '',
-  logo                : '',
-  empty_seats         : '',
-  is_visible          : '',
-  lecturer_avatar     : '',
+  status: '',
+  name: '',
+  description: '',
+  location: '',
+  date: '',
+  duration: '',
+  price: '',
+  seats: '',
+  lecturer: '',
+  logo: '',
+  empty_seats: '',
+  is_visible: '',
+  lecturer_avatar: '',
   lecturer_description: '',
-  lecturer_position   : '',
-  city                : '',
-  days                : [],
+  lecturer_position: '',
+  city: '',
+  days: [],
   meta_description: '',
   meta_title: '',
   meta_keywords: '',
   meta_image: '',
+  banner: '',
 })
 
 onMounted(async () => {
   const { data: userData } = await trainingService.getTraining(route.params.id)
-  training.value           = userData
+  training.value = userData
 })
 
 const updateUser = async () => {
@@ -325,19 +336,26 @@ const updateUser = async () => {
   await router.push({ name: 'trainings' })
 }
 
-const handleLogoChanged           = (file) => {
+const handleLogoChanged = (file) => {
   training.value.logo_upload = file.raw
 }
-const handleLogoRemoved           = async () => {
+const handleLogoRemoved = async () => {
   training.value.logo_upload = ''
-  training.value.logo        = ''
+  training.value.logo = ''
 }
 const handleLecturerAvatarChanged = (file) => {
   training.value.lecturer_avatar_upload = file.raw
 }
 const handleLecturerAvatarRemoved = async () => {
   training.value.lecturer_avatar_upload = ''
-  training.value.lecturer_avatar        = ''
+  training.value.lecturer_avatar = ''
+}
+const handleBannerChanged = (file) => {
+  training.value.banner_upload = file.raw
+}
+const handleBannerRemoved = async () => {
+  training.value.banner_upload = ''
+  training.value.banner = ''
 }
 
 const deleteDay = (index) => {
@@ -348,7 +366,6 @@ const addDay = async () => {
   training.value.days.push({ name: '', content: '' })
 }
 </script>
-
 
 <style scoped>
 
