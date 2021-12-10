@@ -72,7 +72,7 @@
             sortable="custom"
           >
             <template #default="scope">
-              {{ $moment(scope.row.date).format('DD-M-YYYY') }}
+              {{ $moment(scope.row.date).format('DD-MM-YYYY') }}
             </template>
           </el-table-column>
           <el-table-column
@@ -150,22 +150,22 @@
 </template>
 
 <script setup>
-import { Edit, Delete }             from '@element-plus/icons'
-import BaseInput                    from '@/components/base/BaseInput.vue'
-import usePagination                from '@/composables/usePagination'
+import { Edit, Delete } from '@element-plus/icons'
+import BaseInput from '@/components/base/BaseInput.vue'
+import usePagination from '@/composables/usePagination'
 
 const { pagination, setPagination, currentPage } = usePagination()
 import { onMounted, reactive, ref } from 'vue'
 
 const store = useStore()
-import trainingService              from '@/services/trainingService'
-import { useStore }                 from 'vuex'
+import trainingService from '@/services/trainingService'
+import { useStore } from 'vuex'
 
-let loading   = ref(false)
+let loading = ref(false)
 let trainings = ref([])
 
 let data = reactive({
-  date      : '',
+  date: '',
   first_name: '',
 })
 
@@ -177,11 +177,11 @@ const onCurrentPageUpdated = async (page) => {
   currentPage.value = page
   await searchTrainings()
 }
-const searchTrainings      = async () => {
+const searchTrainings = async () => {
   try {
-    loading.value                                 = true
+    loading.value = true
     const { data: { data: trainingsData, meta } } = await trainingService.loadTraining(data, currentPage.value, 10)
-    trainings.value                               = trainingsData
+    trainings.value = trainingsData
     setPagination(meta)
   } catch (e) {
     console.log(e)
@@ -191,7 +191,7 @@ const searchTrainings      = async () => {
 }
 
 const sortTrainings = async (obj) => {
-  data.sort      = obj.prop
+  data.sort = obj.prop
   data.sort_type = obj.order === 'ascending' ? 'asc' : obj.order === 'descending' ? 'desc' : ''
   await searchTrainings()
 }
