@@ -185,7 +185,9 @@ let pageSize = ref([10,25,50,100])
 
 let data = reactive({
   date: '',
-  first_name: '',
+  name: '',
+  sort: 'date',
+  sort_type: 'desc',
 })
 
 onMounted(async () => {
