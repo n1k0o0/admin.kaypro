@@ -251,6 +251,12 @@ let users = ref([])
 let data = reactive({
   first_name: '',
   last_name: '',
+  email: '',
+  phone: '',
+  entity_address: '',
+  psrn: '',
+  itn: '',
+  entity_name: '',
 })
 
 onMounted(async () => {
