@@ -29,7 +29,7 @@
             <BaseInput
               v-model="data.name"
               clearable
-              :label="'Название обучения'"
+              :label="'Наименование курса'"
               @input="searchTrainings"
             />
           </div>
@@ -49,10 +49,28 @@
         </div>
       </div>
       <div class="card-footer">
+        <el-row>
+          <el-col :span="4">
+            <label>Количество строк на странице</label>
+            <el-select
+              v-model="perPage"
+              placeholder="Select"
+              @change="searchTrainings"
+            >
+              <el-option
+                v-for="item in perPageCounts"
+                :key="item"
+                :label="item"
+                :value="item"
+              />
+            </el-select>
+          </el-col>
+        </el-row>
         <el-table
           v-loading="loading"
           :data="trainings"
           :empty-text="'Нет данных'"
+          :default-sort="{ prop: 'date', order: 'descending' }"
           @sort-change="sortTrainings"
         >
           <el-table-column
@@ -154,7 +172,7 @@ import { Edit, Delete } from '@element-plus/icons'
 import BaseInput from '@/components/base/BaseInput.vue'
 import usePagination from '@/composables/usePagination'
 
-const { pagination, setPagination, currentPage } = usePagination()
+const { pagination, setPagination, currentPage,perPage,perPageCounts } = usePagination()
 import { onMounted, reactive, ref } from 'vue'
 
 const store = useStore()
@@ -163,6 +181,7 @@ import { useStore } from 'vuex'
 
 let loading = ref(false)
 let trainings = ref([])
+let pageSize = ref([10,25,50,100])
 
 let data = reactive({
   date: '',
@@ -180,8 +199,9 @@ const onCurrentPageUpdated = async (page) => {
 const searchTrainings = async () => {
   try {
     loading.value = true
-    const { data: { data: trainingsData, meta } } = await trainingService.loadTraining(data, currentPage.value, 10)
+    const { data: { data: trainingsData, meta } } = await trainingService.loadTraining(data, currentPage.value, perPage.value)
     trainings.value = trainingsData
+    console.log(77,meta)
     setPagination(meta)
   } catch (e) {
     console.log(e)

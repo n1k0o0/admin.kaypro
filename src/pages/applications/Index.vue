@@ -25,6 +25,23 @@
         </div>
       </div>
       <div class="card-footer">
+        <el-row>
+          <el-col :span="4">
+            <label>Количество строк на странице</label>
+            <el-select
+              v-model="perPage"
+              placeholder="Select"
+              @change="searchTrainings"
+            >
+              <el-option
+                v-for="item in perPageCounts"
+                :key="item"
+                :label="item"
+                :value="item"
+              />
+            </el-select>
+          </el-col>
+        </el-row>
         <el-table
           v-loading="loading"
           :data="applications"
@@ -111,7 +128,7 @@ import { Edit, Delete }             from '@element-plus/icons'
 import BaseInput                    from '@/components/base/BaseInput.vue'
 import usePagination                from '@/composables/usePagination'
 
-const { pagination, setPagination, currentPage } = usePagination()
+const { pagination, setPagination, currentPage, perPage,perPageCounts } = usePagination()
 import { onMounted, reactive, ref } from 'vue'
 
 const store = useStore()
@@ -137,8 +154,7 @@ const onCurrentPageUpdated = async (page) => {
 const searchTrainings      = async () => {
   try {
     loading.value                                   = true
-    const { data: { data: applicationData, meta } } = await applicationService.loadApplication(data, currentPage.value,
-        10)
+    const { data: { data: applicationData, meta } } = await applicationService.loadApplication(data, currentPage.value, perPage.value)
     applications.value                              = applicationData
     setPagination(meta)
   } catch (e) {

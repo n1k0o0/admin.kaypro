@@ -12,7 +12,7 @@
         <!--begin::Wrapper-->
         <div
           id="kt_wrapper"
-          class="d-flex flex-column flex-row-fluid wrapper"
+          class="d-flex flex-column flex-row-fluid wrapper pb-16"
         >
           <HeaderBlock />
 

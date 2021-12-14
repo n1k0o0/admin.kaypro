@@ -49,6 +49,23 @@
         </div>
       </div>
       <div class="card-footer">
+        <el-row>
+          <el-col :span="4">
+            <label>Количество строк на странице</label>
+            <el-select
+              v-model="perPage"
+              placeholder="Select"
+              @change="searchNews"
+            >
+              <el-option
+                v-for="item in perPageCounts"
+                :key="item"
+                :label="item"
+                :value="item"
+              />
+            </el-select>
+          </el-col>
+        </el-row>
         <el-table
           v-loading="loading"
           :data="news"
@@ -131,28 +148,28 @@
 </template>
 
 <script setup>
-import { Edit, Delete }             from '@element-plus/icons'
-import BaseInput                    from '@/components/base/BaseInput.vue'
-import usePagination                from '@/composables/usePagination'
+import { Edit, Delete } from '@element-plus/icons'
+import BaseInput from '@/components/base/BaseInput.vue'
+import usePagination from '@/composables/usePagination'
 
-const { pagination, setPagination, currentPage } = usePagination()
+const { pagination, setPagination, currentPage, perPage, perPageCounts } = usePagination()
 import { onMounted, reactive, ref } from 'vue'
 
 const store = useStore()
-import newsService                  from '@/services/newsService'
-import { useStore }                 from 'vuex'
+import newsService from '@/services/newsService'
+import { useStore } from 'vuex'
 
 let loading = ref(false)
-let news    = ref([])
+let news = ref([])
 
 let data = reactive({
-  title       : '',
-  text        : '',
-  author      : '',
+  title: '',
+  text: '',
+  author: '',
   published_at: '',
-  visibility  : '',
-  sort        : 'id',
-  sort_type   : 'desc',
+  visibility: '',
+  sort: 'id',
+  sort_type: 'desc',
 })
 
 onMounted(async () => {
@@ -162,11 +179,11 @@ const onCurrentPageUpdated = async (page) => {
   currentPage.value = page
   await searchNews()
 }
-const searchNews           = async () => {
+const searchNews = async () => {
   try {
-    loading.value                            = true
-    const { data: { data: newsData, meta } } = await newsService.loadNews(data, currentPage.value, 10)
-    news.value                               = newsData
+    loading.value = true
+    const { data: { data: newsData, meta } } = await newsService.loadNews(data, currentPage.value, perPage.value)
+    news.value = newsData
     setPagination(meta)
   } catch (e) {
 
@@ -175,8 +192,8 @@ const searchNews           = async () => {
   }
 }
 
-const sorUsers   = async (obj) => {
-  data.sort      = obj.prop
+const sorUsers = async (obj) => {
+  data.sort = obj.prop
   data.sort_type = obj.order === 'ascending' ? 'asc' : obj.order === 'descending' ? 'desc' : ''
   await searchNews()
 }

@@ -1,18 +1,20 @@
-import { reactive, ref } from "vue";
+import { reactive, ref } from 'vue'
 
-export default function usePagination() {
+export default function usePagination () {
 
   const pagination = reactive({
     total: 0,
     'page-size': 0,
-
   })
   const currentPage = ref(1)
-  const setPagination = ({ current_page, total, per_page }) => {
+  const perPageCounts=ref([10,25,50,100])
+  const perPage=ref(10)
+  const setPagination = ({ current_page, total, per_page, last_page }) => {
     pagination.total = total
-    pagination["page-size"] = per_page
-    currentPage.value=current_page
+    pagination.pageCount = last_page
+    pagination['page-size'] = per_page
+    currentPage.value = current_page
   }
-  return { pagination, currentPage, setPagination }
+  return { pagination, currentPage, setPagination,perPage,perPageCounts }
 
 }

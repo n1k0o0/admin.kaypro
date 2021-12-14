@@ -61,6 +61,23 @@
         </div>
       </div>
       <div class="card-footer">
+        <el-row>
+          <el-col :span="4">
+            <label>Количество строк на странице</label>
+            <el-select
+              v-model="perPage"
+              placeholder="Select"
+              @change="searchInternalUsers"
+            >
+              <el-option
+                v-for="item in perPageCounts"
+                :key="item"
+                :label="item"
+                :value="item"
+              />
+            </el-select>
+          </el-col>
+        </el-row>
         <el-table
           v-loading="loading"
           :data="users"
@@ -157,29 +174,29 @@
 </template>
 
 <script setup>
-import { Edit, Delete }                       from '@element-plus/icons'
-import BaseInput                              from '@/components/base/BaseInput.vue'
-import usePagination                          from '@/composables/usePagination'
+import { Edit, Delete } from '@element-plus/icons'
+import BaseInput from '@/components/base/BaseInput.vue'
+import usePagination from '@/composables/usePagination'
 
-const { pagination, setPagination, currentPage } = usePagination()
+const { pagination, setPagination, currentPage, perPage, perPageCounts } = usePagination()
 import { computed, onMounted, reactive, ref } from 'vue'
 
 const store = useStore()
-import internalUserService                    from '@/services/internalUserService'
-import { useStore }                           from 'vuex'
+import internalUserService from '@/services/internalUserService'
+import { useStore } from 'vuex'
 
 let loading = ref(false)
-let users   = ref([])
+let users = ref([])
 
 let data = reactive({
-  phone     : '',
-  email     : '',
-  last_name : '',
+  phone: '',
+  email: '',
+  last_name: '',
   first_name: '',
   updated_at: '',
-  type      : '',
+  type: '',
   patronymic: '',
-  address   : '',
+  address: '',
 })
 
 onMounted(async () => {
@@ -189,11 +206,11 @@ const onCurrentPageUpdated = async (page) => {
   currentPage.value = page
   await searchInternalUsers()
 }
-const searchInternalUsers  = async () => {
+const searchInternalUsers = async () => {
   try {
-    loading.value                             = true
-    const { data: { data: usersData, meta } } = await internalUserService.loadUsers(data, currentPage.value, 10)
-    users.value                               = usersData
+    loading.value = true
+    const { data: { data: usersData, meta } } = await internalUserService.loadUsers(data, currentPage.value, perPage.value)
+    users.value = usersData
     setPagination(meta)
   } catch (e) {
 
@@ -202,8 +219,8 @@ const searchInternalUsers  = async () => {
   }
 }
 
-const sortUser   = async (obj) => {
-  data.sort      = obj.prop
+const sortUser = async (obj) => {
+  data.sort = obj.prop
   data.sort_type = obj.order === 'ascending' ? 'asc' : obj.order === 'descending' ? 'desc' : ''
   await searchInternalUsers()
 }
