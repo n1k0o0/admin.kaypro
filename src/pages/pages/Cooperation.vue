@@ -40,6 +40,17 @@
             />
           </div>
         </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label>Баннер</label>
+            <single-image-uploader
+              :hide-upload-icon="!!collaborations.banner"
+              :image="collaborations.banner"
+              :on-change="handleBannerChanged"
+              :on-remove="handleBannerRemoved"
+            />
+          </div>
+        </div>
         <el-divider />
 
         <div class="col-12">
@@ -89,6 +100,7 @@
 </template>
 
 <script setup>
+import SingleImageUploader from '@/components/base/SingleImageUploader.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import Editor from '@tinymce/tinymce-vue'
 
@@ -108,7 +120,7 @@ const props = defineProps({
 let loading = ref(false)
 
 let collaborations = ref({
-  logo: '',
+  banner: '',
   text_image_1: '',
   text_image_2: '',
   content: [{
@@ -125,27 +137,6 @@ watch(() => props.cooperation, () => {
   collaborations.value = props.cooperation
 })
 
-const handleLogoChanged = (file) => {
-  collaborations.value.logo_upload = file.raw
-}
-const handleLogoRemoved = () => {
-  collaborations.value.logo_upload = ''
-  collaborations.value.logo = ''
-}
-const addContext = () => {
-  collaborations.value.content.push({
-    title: '',
-    description: '',
-    meta_title: '',
-    meta_description: '',
-    meta_keywords: '',
-    meta_url: '',
-    meta_image: '',
-  })
-}
-const deleteContext = (index) => {
-  collaborations.value.content.splice(index, 1)
-}
 
 const updateDocument = async () => {
 
@@ -154,6 +145,14 @@ const updateDocument = async () => {
     return
   }
   await pagesService.update(collaborations.value.name, collaborations.value)
+}
+
+const handleBannerChanged = (file) => {
+  collaborations.value.banner_upload = file.raw
+}
+const handleBannerRemoved = async () => {
+  collaborations.value.banner_upload = ''
+  collaborations.value.banner = ''
 }
 </script>
 
