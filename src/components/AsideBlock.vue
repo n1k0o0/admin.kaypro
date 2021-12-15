@@ -175,9 +175,9 @@
             <i class="menu-icon ki ki-bold-more-hor icon-md" />
           </li>
           <router-link
-            to
+            :to="{name: 'categories'}"
             class="menu-item"
-            :class="{'menu-item-active': $route.path === '/posts'}"
+            :class="{'menu-item-active': $route.path === '/categories'}"
           >
             <a
               href="#"
