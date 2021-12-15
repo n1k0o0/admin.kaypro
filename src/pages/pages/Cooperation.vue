@@ -123,10 +123,10 @@ let collaborations = ref({
   banner: '',
   text_image_1: '',
   text_image_2: '',
-  content: [{
+  content: {
     title: '',
     description: '',
-  }],
+  },
   meta_description: '',
   meta_title: '',
   meta_h1: '',
