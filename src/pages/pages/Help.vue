@@ -174,7 +174,6 @@ let helps = ref({
 })
 
 watch(() => props.help, () => {
-  console.log('help')
   helps.value = props.help
 })
 
@@ -206,7 +205,7 @@ const updateHelp = async () => {
     ElNotification({ type: 'error', title: 'Ошибка', message: 'Название и описание обязательны для заполнения' })
     return
   }
-  await pagesService.updateAboutPage(helps.value.name, helps.value)
+  await pagesService.update(helps.value.name, helps.value)
 }
 </script>
 

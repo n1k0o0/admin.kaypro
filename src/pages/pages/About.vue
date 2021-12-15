@@ -199,7 +199,7 @@ const handleContentImage2Removed = async () => {
   abouts.value.content_image2 = ''
 }
 const updateContact = async () => {
-  await pagesService.updateAboutPage(abouts.value.name, abouts.value)
+  await pagesService.update(abouts.value.name, abouts.value)
 }
 </script>
 

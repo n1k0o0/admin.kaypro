@@ -285,7 +285,6 @@ const sortUser = async (obj) => {
   await searchUsers()
 }
 const deleteUser = async (user) => {
-  console.log(user)
   const {} = await userService.removeUser(user.id)
   await searchUsers()
 }

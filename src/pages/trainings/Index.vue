@@ -203,7 +203,6 @@ const searchTrainings = async () => {
     loading.value = true
     const { data: { data: trainingsData, meta } } = await trainingService.loadTraining(data, currentPage.value, perPage.value)
     trainings.value = trainingsData
-    console.log(77,meta)
     setPagination(meta)
   } catch (e) {
     console.log(e)

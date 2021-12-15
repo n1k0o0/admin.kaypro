@@ -225,7 +225,6 @@ const sortUser = async (obj) => {
   await searchInternalUsers()
 }
 const deleteUser = async (user) => {
-  console.log(user)
   const {} = await internalUserService.removeUser(user.id)
   await searchInternalUsers()
 }

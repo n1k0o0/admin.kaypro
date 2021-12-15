@@ -108,7 +108,6 @@ let user    = ref({
 })
 
 const createInternalUser = async () => {
-  console.log(user.value)
   const {} = await internalUserService.createUser(user.value)
   await router.push({ name: 'internal-users' })
 }

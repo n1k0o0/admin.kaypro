@@ -38,6 +38,12 @@
           >
             <Documents :document="documents" />
           </el-tab-pane>
+          <el-tab-pane
+            label="Сотрудничество"
+            name="cooperation"
+          >
+            <Cooperation :cooperation="collaborations" />
+          </el-tab-pane>
         </el-tabs>
       </div>
     </div>
@@ -49,6 +55,7 @@ import About from '@/pages/pages/About.vue'
 import Contacts from '@/pages/pages/Contacts.vue'
 import Help from '@/pages/pages/Help.vue'
 import Documents from '@/pages/pages/Documents.vue'
+import Cooperation from '@/pages/pages/Cooperation.vue'
 import pagesService from '@/services/pagesService'
 
 import { onMounted, ref } from 'vue'
@@ -62,12 +69,14 @@ let abouts = ref({})
 let contacts = ref({})
 let documents = ref({})
 let helps = ref({})
+let collaborations = ref({})
 onMounted(async () => {
   const { data: dataPages } = await pagesService.loadPages()
   abouts.value = dataPages.filter(el => el.name === 'about')[0]
   contacts.value = dataPages.filter(el => el.name === 'contact')[0]
   helps.value = dataPages.filter(el => el.name === 'help')[0]
   documents.value = dataPages.filter(el => el.name === 'document')[0]
+  collaborations.value = dataPages.filter(el => el.name === 'cooperation')[0]
 })
 
 </script>

@@ -23,7 +23,7 @@ export default {
     return api.get(`${ENDPOINT}/${id}`)
   },
 
-  updateAboutPage(id,data) {
+  update(id,data) {
     const formData = new FormData()
     formData.append('_method','PUT')
     Object.keys(data).forEach(function (key) {

@@ -125,7 +125,7 @@ const handleLogoRemoved = async () => {
   contacts.value.logo = ''
 }
 const updateContact = async () => {
-  await pagesService.updateAboutPage(contacts.value.name, contacts.value)
+  await pagesService.update(contacts.value.name, contacts.value)
 }
 </script>
 

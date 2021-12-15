@@ -174,7 +174,6 @@ let documents = ref({
 })
 
 watch(() => props.document, () => {
-  console.log('document')
   documents.value = props.document
 })
 
@@ -208,7 +207,7 @@ const updateDocument = async () => {
     ElNotification({ type: 'error', title: 'Ошибка', message: 'Название и описание обязательны для заполнения' })
     return
   }
-  await pagesService.updateAboutPage(documents.value.name, documents.value)
+  await pagesService.update(documents.value.name, documents.value)
 }
 </script>
 
