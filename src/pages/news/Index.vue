@@ -80,11 +80,13 @@
           />
           <el-table-column
             prop="title"
+            min-width="100"
             label="Заголовок"
             sortable="custom"
           />
           <el-table-column
             prop="published_at"
+            min-width="135"
             label="Дата и время публикации"
             sortable="custom"
           >
@@ -94,12 +96,14 @@
           </el-table-column>
           <el-table-column
             prop="author.first_name"
+            min-width="100"
             label="Автор"
             sortable="custom"
           />
           <el-table-column
             label="Видимость"
             sortable="custom"
+            min-width="100"
             prop="visibility"
           >
             <template #default="scope">

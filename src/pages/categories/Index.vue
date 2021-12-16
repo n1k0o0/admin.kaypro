@@ -52,21 +52,24 @@
           <el-table-column
             prop="id"
             label="ID"
-            width="70"
+            width="60"
             sortable="custom"
           />
           <el-table-column
             prop="title"
+            min-width="130"
             label="Заголовок"
             sortable="custom"
           />
           <el-table-column
             prop="subtitle"
             label="Подзаголовок"
+            min-width="150"
             sortable="custom"
           />
           <el-table-column
             label="Видимость в МП"
+            min-width="160"
             sortable="mobile_visibility"
             prop="status"
           >
@@ -77,6 +80,7 @@
           <el-table-column
             prop="order"
             label="Приоритет"
+            min-width="130"
             sortable="custom"
           />
           <el-table-column

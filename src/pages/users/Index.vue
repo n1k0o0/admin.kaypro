@@ -107,37 +107,41 @@
           <el-table-column
             prop="id"
             label="ID"
-            width="50"
+            width="60"
             sortable="custom"
           />
           <el-table-column
             prop="first_name"
             label="Имя"
+            min-width="100"
             sortable="custom"
           />
           <el-table-column
             prop="last_name"
             label="Фамилия"
+            min-width="110"
             sortable="custom"
           />
           <el-table-column
             prop="address"
+            min-width="100"
             label="Адресс"
           />
           <el-table-column
             prop="phone"
             label="Номер"
+            min-width="100"
             sortable="custom"
           />
           <el-table-column
             prop="email"
             label="Почта"
-            width="120"
+            min-width="100"
             sortable="custom"
           />
           <el-table-column
             label="Ю.Л."
-            width="75"
+            width="80"
             prop="entity"
             sortable="custom"
           >
@@ -148,7 +152,7 @@
           <el-table-column
             prop="entity_name"
             label="Наименование компании"
-            width="75"
+            min-width="200"
           />
           <el-table-column
             prop="itn"
@@ -163,10 +167,12 @@
           <el-table-column
             prop="entity_address"
             label="Юридический адрес"
+            min-width="170"
           />
           <el-table-column
             prop="entity_status"
             label="Статус проверки юрлица"
+            min-width="200"
           >
             <template #default="scope">
               {{ userService.getUserEntityStatus(scope.row.entity_status) }}
@@ -176,6 +182,7 @@
             label="Статус"
             sortable="custom"
             prop="status"
+            min-width="100"
           >
             <template #default="scope">
               {{ userService.getUserStatus(scope.row.status) }}
@@ -184,6 +191,7 @@
           <el-table-column
             prop="price_type"
             label="Вид цены"
+            min-width="100"
           />
           <el-table-column
             label="Дата изменения"

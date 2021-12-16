@@ -87,33 +87,38 @@
           <el-table-column
             prop="id"
             label="ID"
-            width="50"
+            width="60"
             sortable="custom"
           />
           <el-table-column
             prop="first_name"
             label="Имя"
+            min-width="100"
             sortable="custom"
           />
           <el-table-column
             prop="last_name"
             label="Фамилия"
+            min-width="110"
             sortable="custom"
           />
           <el-table-column
             prop="phone"
             label="Номер"
+            min-width="100"
             sortable="custom"
           />
           <el-table-column
             prop="email"
             label="Почта"
+            min-width="100"
             width="120"
             sortable="custom"
           />
           <el-table-column
             label="Тип"
             sortable="custom"
+            min-width="100"
             prop="type"
           >
             <template #default="scope">
@@ -122,7 +127,7 @@
           </el-table-column>
           <el-table-column
             label="Дата изменения"
-            width="120"
+            min-width="155"
             sortable="custom"
             prop="updated_at"
           >

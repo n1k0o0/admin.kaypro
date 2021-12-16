@@ -76,17 +76,19 @@
           <el-table-column
             prop="id"
             label="ID"
-            width="50"
+            width="60"
             sortable="custom"
           />
           <el-table-column
             prop="name"
+            min-width="120"
             label="Название"
             sortable="custom"
           />
           <el-table-column
             prop="date"
             label="Дата"
+            min-width="100"
             sortable="custom"
           >
             <template #default="scope">
@@ -95,21 +97,27 @@
           </el-table-column>
           <el-table-column
             prop="lecturer"
+            min-width="150"
             label="ФИО лектора"
             sortable="custom"
           />
           <el-table-column
             prop="seats"
+            min-width="180"
             label="Количество мест"
+            align="center"
             sortable="custom"
           />
           <el-table-column
             prop="empty_seats"
-            label="Количество свободных мест"
+            min-width="200"
+            label="Кол. свободных мест"
+            align="center"
             sortable="custom"
           />
           <el-table-column
             label="Статус"
+            min-width="100"
             sortable="custom"
             prop="status"
           >
@@ -120,6 +128,7 @@
           <el-table-column
             prop="is_visible"
             label="Видимость"
+            min-width="130"
             sortable="custom"
           >
             <template #default="scope">
