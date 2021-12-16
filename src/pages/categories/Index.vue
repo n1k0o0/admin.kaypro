@@ -7,8 +7,8 @@
             <i class="flaticon2-user-outline-symbol text-primary" />
           </span>
           <h3 class="card-label">
-            Заявки
-            <small>обучение</small>
+            Категории
+            <small>управление товарами</small>
           </h3>
         </div>
       </div>
@@ -18,7 +18,7 @@
             <BaseInput
               v-model="data.title"
               clearable
-              :label="'Название обучения'"
+              :label="'Заголовок'"
               @input="search"
             />
           </div>
