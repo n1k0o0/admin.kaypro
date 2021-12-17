@@ -17,7 +17,9 @@ import NewsEdit from '@/pages/news/Edit.vue'
 import NewsCreate from '@/pages/news/Create.vue'
 import Pages from '@/pages/pages/Index.vue'
 import Categories from '@/pages/categories/Index.vue'
-import EditCategories from '@/pages/categories/Edit.vue'
+import CategoryEdit from '@/pages/categories/Edit.vue'
+import Products from '@/pages/products/Index.vue'
+import ProductEdit from '@/pages/products/Edit.vue'
 
 const routes = [
   { path: '/', name: 'dashboard', component: Index },
@@ -84,7 +86,17 @@ const routes = [
   {
     path: '/categories-edit/:id',
     name: 'categories-edit',
-    component: EditCategories,
+    component: CategoryEdit,
+  },
+  {
+    path: '/products',
+    name: 'products',
+    component: Products,
+  },
+  {
+    path: '/products-edit/:id',
+    name: 'products-edit',
+    component: ProductEdit,
   },
 ]
 

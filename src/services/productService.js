@@ -1,15 +1,15 @@
 import api from './api'
 
-const ENDPOINT = '/product-categories'
+const ENDPOINT = '/products'
 export default {
 
-  MOBILE_VISIBILITY: {
-    0: 'Невидим',
-    1: 'Видим',
+  STATUSES: {
+    'active': 'Активен',
+    'inactive': 'Не активен',
   },
 
-  getMobileVisibility (type) {
-    return this.MOBILE_VISIBILITY[type]
+  getStatus (type) {
+    return this.STATUSES[type]
   },
 
   load (search, page = null, limit = null) {
@@ -38,7 +38,7 @@ export default {
       if(data[key]==='null' || data[key]===null) {
         data[key]=''
       }
-      if (!(data[key] instanceof File) && (key === 'logo' || key === 'banner') && data[key] !== '' && data[key] !== null) {
+      if (!(data[key] instanceof File) && (key === 'logo' || key === 'banner') && data[key] !== null && data[key] !== '') {
         return
       }
       formData.append(`${key}`, data[key])

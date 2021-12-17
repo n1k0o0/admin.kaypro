@@ -217,9 +217,9 @@
             </a>
           </router-link>
           <router-link
-            to
+            :to="{name: 'products'}"
             class="menu-item"
-            :class="{'menu-item-active': $route.path === '/posts-moderation'}"
+            :class="{'menu-item-active': $route.path === '/products'}"
           >
             <a
               href="#"

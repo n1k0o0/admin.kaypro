@@ -39,6 +39,9 @@ export default {
   createTraining (data) {
     const formData = new FormData()
     Object.keys(data).forEach(function (key) {
+      if(data[key]==='null' || data[key]===null) {
+        data[key]=''
+      }
       if (key === 'days') {
         formData.append(`${key}`, JSON.stringify(data[key]))
       } else {
