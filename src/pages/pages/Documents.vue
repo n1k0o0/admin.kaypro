@@ -9,15 +9,6 @@
     </div>
     <div class="card-body">
       <div class="row ">
-        <div class="col-12 mb-4">
-          <el-button
-            :icon="Plus"
-            type="primary"
-            @click="addContext"
-          >
-            Добавить раздел
-          </el-button>
-        </div>
         <template
           v-for="(context,index) in documents.content"
           :key="index"
@@ -92,6 +83,15 @@
           </div>
           <el-divider />
         </template>
+        <div class="col-12 mb-8">
+          <el-button
+            :icon="Plus"
+            type="primary"
+            @click="addContext"
+          >
+            Добавить раздел
+          </el-button>
+        </div>
 
         <div class="col-12">
           <BaseInput

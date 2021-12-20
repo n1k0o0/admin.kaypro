@@ -6,6 +6,7 @@
       :value="value"
       v-bind="$attrs"
       :disabled="disabled"
+      :aria-invalid="error?true:null"
       @input="updateInput"
     />
     <div
@@ -47,9 +48,10 @@ export default {
       type: [Number, String],
     }
   },
+  emits: ['input'],
 
   methods: {
-    updateInput(evt) {
+    updateInput (evt) {
       this.$emit('input', evt)
     }
   }

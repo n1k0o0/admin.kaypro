@@ -29,19 +29,19 @@
             <BaseInput
               v-model="data.title"
               clearable
-              :label="'Имя'"
+              :label="'Заголовок'"
               @input="searchNews"
             />
           </div>
           <div class="col-xs-6 col-md-6 col-lg-3">
             <div class="form-group">
-              <label>Дата проведения</label>
+              <label>Дату публикации</label>
               <el-date-picker
                 v-model="data.published_at"
                 format="DD-MM-YYYY"
                 value-format="YYYY-MM-DD"
                 clearable
-                :label="'Дата и время проведения'"
+                :label="'Дату публикации'"
                 @change="searchNews"
               />
             </div>

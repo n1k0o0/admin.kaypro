@@ -20,6 +20,14 @@
           <el-divider />
           <div class="col-12">
             <BaseInput
+              v-model="category.title"
+              disabled
+              clearable
+              :label="'Заголовок'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
               v-model="category.subtitle"
               clearable
               :label="'Подзаголовок'"
@@ -137,6 +145,7 @@ const store = useStore()
 
 let loading = ref(false)
 let category = ref({
+  title: '',
   subtitle: '',
   logo: '',
   mobile_visibility: '',

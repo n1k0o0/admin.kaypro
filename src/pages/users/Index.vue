@@ -140,6 +140,17 @@
             sortable="custom"
           />
           <el-table-column
+            label="Согласие на информирование"
+            min-width="260"
+            prop="subscribe"
+            align="center"
+            sortable="custom"
+          >
+            <template #default="scope">
+              {{ scope.row.subscribe?'Да':'Нет' }}
+            </template>
+          </el-table-column>
+          <el-table-column
             label="Ю.Л."
             width="80"
             prop="entity"

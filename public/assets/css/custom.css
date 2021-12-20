@@ -24,7 +24,7 @@
 .actions .cell .el-button{
     margin: 0;
 }
-.el-select,.el-input{
+.el-select,.el-input,.el-switch{
     display: block!important;
 }
 .el-date-editor.el-input, .el-date-editor.el-input__inner{

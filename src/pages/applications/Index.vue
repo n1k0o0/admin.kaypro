@@ -18,7 +18,7 @@
             <BaseInput
               v-model="data.name"
               clearable
-              :label="'Название обучения'"
+              :label="'Наименование обучения'"
               @input="searchTrainings"
             />
           </div>
@@ -56,26 +56,31 @@
           />
           <el-table-column
             prop="training.name"
-            label="Название курса"
+            label="Наименование обучения"
+            min-width="130"
           />
           <el-table-column
             prop="user_name"
             label="Имя"
+            min-width="100"
             sortable="custom"
           />
           <el-table-column
             prop="email"
             label="Почта"
+            min-width="110"
             sortable="custom"
           />
           <el-table-column
             prop="phone"
             label="Номер"
+            min-width="100"
             sortable="custom"
           />
           <el-table-column
             label="Статус"
             sortable="custom"
+            min-width="100"
             prop="status"
           >
             <template #default="scope">

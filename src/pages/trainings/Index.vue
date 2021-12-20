@@ -82,7 +82,7 @@
           <el-table-column
             prop="name"
             min-width="120"
-            label="Название"
+            label="Наименование"
             sortable="custom"
           />
           <el-table-column

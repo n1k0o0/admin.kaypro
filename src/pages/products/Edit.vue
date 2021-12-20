@@ -20,9 +20,72 @@
           <el-divider />
           <div class="col-12">
             <BaseInput
-              v-model="data.short_description"
+              v-model="data.name"
               clearable
-              :label="'Краткое описание товара'"
+              disabled
+              :label="'Наименование'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.id_1c"
+              clearable
+              disabled
+              :label="'Идентификатор в 1С'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.barcode"
+              clearable
+              disabled
+              :label="'Штрихкод'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.category"
+              clearable
+              disabled
+              :label="'Вид номенклатуры'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.vendor_code"
+              clearable
+              disabled
+              :label="'Артикул'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.unit"
+              clearable
+              disabled
+              :label="'Базовая единица'"
+            />
+          </div><div class="col-12">
+            <BaseInput
+              v-model="data.count"
+              clearable
+              disabled
+              :label="'Остаток'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.price"
+              clearable
+              disabled
+              :label="'набор цен'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.characteristic"
+              clearable
+              :label="'Характеристика'"
             />
           </div>
           <div class="col-12">
@@ -54,19 +117,20 @@
             />
           </div>
           <div class="col-12">
+            <BaseInput
+              v-model="data.dimension"
+              clearable
+              :label="'Габарит'"
+            />
+          </div>
+          <div class="col-12">
             <div class="form-group">
               <label>Статус</label>
-              <el-select
+              <el-switch
                 v-model="data.status"
-                placeholder="Select"
-              >
-                <el-option
-                  v-for="(item,key) in productService.STATUSES"
-                  :key="key"
-                  :label="item"
-                  :value="key"
-                />
-              </el-select>
+                :active-value="1"
+                :inactive-value="0"
+              />
             </div>
           </div>
           <div class="col-12">
@@ -158,13 +222,22 @@ const store = useStore()
 
 let loading = ref(false)
 let data = ref({
-  short_description: '',
+  name: '',
+  id_1c: '',
+  barcode: '',
+  category: '',
+  vendor_code: '',
+  unit: '',
+  count: '',
+  price: '',
   logo: '',
   full_description: '',
+  characteristic: '',
   composition: '',
   status: '',
   country: '',
   volume: '',
+  dimension: '',
   meta_title: '',
   meta_keywords: '',
   meta_description: '',

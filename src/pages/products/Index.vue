@@ -7,7 +7,7 @@
             <i class="flaticon2-user-outline-symbol text-primary" />
           </span>
           <h3 class="card-label">
-            Категории
+            Товары
             <small>управление товарами</small>
           </h3>
         </div>
@@ -96,7 +96,11 @@
             label="Статус"
             min-width="130"
             sortable="custom"
-          />
+          >
+            <template #default="scope">
+              {{ scope.row.status?'Активен':'Неактивен' }}
+            </template>
+          </el-table-column>
           <el-table-column
             label="Управление"
             width="140"
