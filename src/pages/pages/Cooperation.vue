@@ -24,7 +24,7 @@
               maxlength="4096"
               rows="4"
               placeholder="Не больше 4096 символов"
-              api-key="no-api-key"
+              :api-key="$tinyKey"
               :init="{
                 language: 'ru',
                 height: 250,

@@ -20,6 +20,14 @@
           <el-divider />
           <div class="col-12">
             <BaseInput
+              v-model="category.parent.title"
+              disabled
+              clearable
+              :label="'Родительская категория'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
               v-model="category.title"
               disabled
               clearable
@@ -75,6 +83,28 @@
                 :image="category.banner"
                 :on-change="handleBannerChanged"
                 :on-remove="handleBannerRemoved"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Баннер для меню</label>
+              <single-image-uploader
+                :hide-upload-icon="!!category.banner_menu"
+                :image="category.banner_menu"
+                :on-change="handleBannerMenuChanged"
+                :on-remove="handleBannerMenuRemoved"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Баннер для МП</label>
+              <single-image-uploader
+                :hide-upload-icon="!!category.banner_mobile"
+                :image="category.banner_mobile"
+                :on-change="handleBannerMobileChanged"
+                :on-remove="handleBannerMobileRemoved"
               />
             </div>
           </div>
@@ -145,6 +175,9 @@ const store = useStore()
 
 let loading = ref(false)
 let category = ref({
+  parent:{
+    title:''
+  },
   title: '',
   subtitle: '',
   logo: '',
@@ -155,6 +188,8 @@ let category = ref({
   meta_keywords: '',
   meta_image: '',
   banner: '',
+  banner_menu: '',
+  banner_mobile: '',
 })
 
 onMounted(async () => {
@@ -174,12 +209,29 @@ const handleLogoRemoved = async () => {
   category.value.logo_upload = ''
   category.value.logo = ''
 }
+
 const handleBannerChanged = (file) => {
   category.value.banner_upload = file.raw
 }
 const handleBannerRemoved = async () => {
   category.value.banner_upload = ''
   category.value.banner = ''
+}
+
+const handleBannerMobileChanged = (file) => {
+  category.value.banner_mobile_upload = file.raw
+}
+const handleBannerMobileRemoved = async () => {
+  category.value.banner_mobile_upload = ''
+  category.value.banner_mobile = ''
+}
+
+const handleBannerMenuChanged = (file) => {
+  category.value.banner_menu_upload = file.raw
+}
+const handleBannerMenuRemoved = async () => {
+  category.value.banner_menu_upload = ''
+  category.value.banner_menu = ''
 }
 
 </script>

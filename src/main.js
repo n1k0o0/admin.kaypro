@@ -10,7 +10,8 @@ import moment from 'moment';
 
 const app = createApp(App)
 app.config.devtools = true
-app.config.globalProperties.$moment = moment;
+app.config.globalProperties.$moment = moment
+app.config.globalProperties.$tinyKey = import.meta.env.VITE_TINYMCE_KEY
 app.use(router)
 app.use(store)
 app.use(ElementPlus, {locale})
