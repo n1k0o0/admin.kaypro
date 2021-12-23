@@ -195,6 +195,7 @@ let category = ref({
 onMounted(async () => {
   const { data: userData } = await categoryService.get(route.params.id)
   category.value = userData
+  category.value.parent = category.value.parent||[]
 })
 
 const updateUser = async () => {
