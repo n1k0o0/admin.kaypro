@@ -82,25 +82,76 @@
             />
           </div>
           <div class="col-12">
-            <BaseInput
-              v-model="data.characteristic"
-              clearable
-              :label="'Характеристика'"
-            />
+            <div class="form-group">
+              <label>Характеристика</label>
+              <editor
+                v-model="data.characteristic"
+                maxlength="512"
+                rows="4"
+                placeholder="Не больше 512 символов"
+                :api-key="$tinyKey"
+                :init="{
+                  language: 'ru',
+                  height: 250,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+                }"
+              />
+            </div>
           </div>
           <div class="col-12">
-            <BaseInput
-              v-model="data.full_description"
-              clearable
-              :label="'Развернутое описание товара'"
-            />
+            <div class="form-group">
+              <label>Развернутое описание товара</label>
+              <editor
+                v-model="data.full_description"
+                maxlength="2048"
+                rows="4"
+                placeholder="Не больше 2048 символов"
+                :api-key="$tinyKey"
+                :init="{
+                  language: 'ru',
+                  height: 250,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+                }"
+              />
+            </div>
           </div>
           <div class="col-12">
-            <BaseInput
-              v-model="data.composition"
-              clearable
-              :label="'Состав'"
-            />
+            <div class="form-group">
+              <label>Состав</label>
+              <editor
+                v-model="data.composition"
+                maxlength="512"
+                rows="4"
+                placeholder="Не больше 512 символов"
+                :api-key="$tinyKey"
+                :init="{
+                  language: 'ru',
+                  height: 250,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+                }"
+              />
+            </div>
           </div>
           <div class="col-12">
             <BaseInput
@@ -136,9 +187,8 @@
           <div class="col-12">
             <div class="form-group">
               <label>Фото</label>
-              <single-image-uploader
-                :hide-upload-icon="!!data.logo"
-                :image="data.logo"
+              <multiple-image-uploader
+                :images="data.logo"
                 :on-change="handleLogoChanged"
                 :on-remove="handleLogoRemoved"
               />
@@ -209,9 +259,10 @@
 
 <script setup>
 import BaseInput from '@/components/base/BaseInput.vue'
-import SingleImageUploader from '@/components/base/SingleImageUploader.vue'
+import MultipleImageUploader from '@/components/base/MultipleImageUploader.vue'
 import VideoUploader from '@/components/base/VideoUploader.vue'
 import productService from '@/services/productService'
+import Editor from '@tinymce/tinymce-vue'
 import { useStore } from 'vuex'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -230,7 +281,8 @@ let data = ref({
   unit: '',
   count: '',
   price: '',
-  logo: '',
+  logo: [],
+  deleted_files: [],
   full_description: '',
   characteristic: '',
   composition: '',
@@ -248,6 +300,7 @@ let data = ref({
 onMounted(async () => {
   const { data: userData } = await productService.get(route.params.id)
   data.value = userData
+  data.value.deleted_files=[]
 })
 
 const updateUser = async () => {
@@ -255,12 +308,15 @@ const updateUser = async () => {
   await router.push({ name: 'products' })
 }
 
-const handleLogoChanged = (file) => {
-  data.value.logo_upload = file.raw
+const handleLogoChanged = (file,fileList) => {
+  data.value.logo_upload = fileList
 }
-const handleLogoRemoved = async () => {
-  data.value.logo_upload = ''
-  data.value.logo = ''
+const handleLogoRemoved = async (file,fileList) => {
+  data.value.logo_upload = fileList
+  if (file.id) {
+    data.value.deleted_files.push(file.id)
+  }
+  console.log(file)
 }
 const handleVideoChanged = (file) => {
   data.value.video_upload = file.raw

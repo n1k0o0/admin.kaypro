@@ -38,10 +38,16 @@ export default {
       if(data[key]==='null' || data[key]===null) {
         data[key]=''
       }
-      if (!(data[key] instanceof File) && (key === 'logo' || key === 'banner') && data[key] !== null && data[key] !== '') {
-        return
+      if (key === 'logo_upload') {
+        data[key].forEach((el)=>{
+          if (el.raw){
+            formData.append(`${key}[]`,el.raw)
+          }
+        })
+      }else {
+        formData.append(`${key}`, data[key])
       }
-      formData.append(`${key}`, data[key])
+
     })
 
     return api.post(`${ENDPOINT}/${id}`, formData, {
