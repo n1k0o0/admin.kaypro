@@ -16,7 +16,7 @@
   </el-upload>
   <el-dialog v-model="dialogVisible">
     <img
-      width="100%"
+      style="width:100%;"
       :src="dialogImageUrl"
       alt=""
     >

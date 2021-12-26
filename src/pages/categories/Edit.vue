@@ -20,7 +20,7 @@
           <el-divider />
           <div class="col-12">
             <BaseInput
-              v-model="category.parent.title"
+              :value="category.parent?.title"
               disabled
               clearable
               :label="'Родительская категория'"
@@ -28,7 +28,7 @@
           </div>
           <div class="col-12">
             <BaseInput
-              v-model="category.title"
+              :value="category.title"
               disabled
               clearable
               :label="'Заголовок'"
@@ -195,7 +195,6 @@ let category = ref({
 onMounted(async () => {
   const { data: userData } = await categoryService.get(route.params.id)
   category.value = userData
-  category.value.parent = category.value.parent||[]
 })
 
 const updateUser = async () => {

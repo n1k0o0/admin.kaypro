@@ -35,16 +35,26 @@ export default {
     const formData = new FormData()
     formData.append('_method', 'PUT')
     Object.keys(data).forEach(function (key) {
-      if(data[key]==='null' || data[key]===null) {
-        data[key]=''
+      if (data[key] === 'null' || data[key] === null) {
+        data[key] = ''
       }
       if (key === 'logo_upload') {
-        data[key].forEach((el)=>{
-          if (el.raw){
-            formData.append(`${key}[]`,el.raw)
+        data[key].forEach((el) => {
+          if (el.raw) {
+            formData.append(`${key}[]`, el.raw)
           }
         })
-      }else {
+      } else {
+        if (Array.isArray(data[key])) {
+
+          let arr = data[key]
+
+          for (let i = 0; i < arr.length; i++) {
+            formData.append(`${key}[${i}]`, arr[i])
+          }
+
+          return
+        }
         formData.append(`${key}`, data[key])
       }
 
