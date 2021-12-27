@@ -316,7 +316,6 @@ const handleLogoRemoved = async (file,fileList) => {
   if (file.id) {
     data.value.deleted_files.push(file.id)
   }
-  console.log(file)
 }
 const handleVideoChanged = (file) => {
   data.value.video_upload = file.raw

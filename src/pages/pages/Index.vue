@@ -13,6 +13,12 @@
           v-model="activeName"
         >
           <el-tab-pane
+            label="Главная"
+            name="home"
+          >
+            <Home :home="homes" />
+          </el-tab-pane>
+          <el-tab-pane
             label="О компании"
             name="about"
           >
@@ -56,6 +62,7 @@ import Contacts from '@/pages/pages/Contacts.vue'
 import Help from '@/pages/pages/Help.vue'
 import Documents from '@/pages/pages/Documents.vue'
 import Cooperation from '@/pages/pages/Cooperation.vue'
+import Home from '@/pages/pages/Home.vue'
 import pagesService from '@/services/pagesService'
 
 import { onMounted, ref } from 'vue'
@@ -64,12 +71,13 @@ const store = useStore()
 import { useStore } from 'vuex'
 
 let loading = ref(false)
-let activeName = ref('about')
+let activeName = ref('home')
 let abouts = ref({})
 let contacts = ref({})
 let documents = ref({})
 let helps = ref({})
 let collaborations = ref({})
+let homes = ref({})
 onMounted(async () => {
   const { data: dataPages } = await pagesService.loadPages()
   abouts.value = dataPages.filter(el => el.name === 'about')[0]
@@ -77,6 +85,7 @@ onMounted(async () => {
   helps.value = dataPages.filter(el => el.name === 'help')[0]
   documents.value = dataPages.filter(el => el.name === 'document')[0]
   collaborations.value = dataPages.filter(el => el.name === 'cooperation')[0]
+  homes.value = dataPages.filter(el => el.name === 'home')[0]
 })
 
 </script>

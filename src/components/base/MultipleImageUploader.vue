@@ -6,6 +6,7 @@
     multiple
     :on-remove="onRemove"
     :on-change="onChange"
+    :limit="max"
     accept=".png,.jpg,.jpeg"
     :on-preview="handlePictureCardPreview"
     :file-list="images"
@@ -31,6 +32,10 @@ export default {
   props: {
     images: {
       type: Object,
+      default: null,
+    },
+    max: {
+      type: Number,
       default: null,
     },
     preview: {

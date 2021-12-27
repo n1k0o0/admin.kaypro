@@ -30,10 +30,24 @@ export default {
       if(data[key]==='null' || data[key]===null) {
         data[key]=''
       }
-      if (!(data[key] instanceof File) && (key==='logo' || key==='contentImage_1' || key==='contentImage_2') && data[key]!=='' && data[key]!==null) {
+      if (key === 'instagram') {
+        data[key].forEach((el) => {
+          if (el.raw) {
+            formData.append(`${key}[]`, el.raw)
+          }
+        })
+      }else if (!(data[key] instanceof File) && (key==='logo' || key==='contentImage_1' || key==='contentImage_2') && data[key]!=='' && data[key]!==null) {
         return
       }
-      if (data[key] instanceof Object && !(data[key] instanceof File)){
+      if (key==='deleted_files') {
+
+        let arr = data[key]
+
+        for (let i = 0; i < arr.length; i++) {
+          formData.append(`${key}[${i}]`, arr[i])
+        }
+
+      }else if (data[key] instanceof Object && !(data[key] instanceof File)){
         formData.append(`${key}`,JSON.stringify( data[key]))
       }else {
         formData.append(`${key}`, data[key])
