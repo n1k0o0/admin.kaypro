@@ -17,6 +17,11 @@
     >
       <plus />
     </el-icon>
+    <template #tip>
+      <div class="el-upload__tip">
+        {{ tip }}
+      </div>
+    </template>
   </el-upload>
 </template>
 
@@ -32,6 +37,10 @@ export default {
     image: {
       type: Object,
       default: null,
+    },
+    tip: {
+      type: String,
+      default: '',
     },
     hideUploadIcon: {
       default: false,

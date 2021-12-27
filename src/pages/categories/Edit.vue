@@ -66,23 +66,25 @@
           </div>
           <div class="col-12">
             <div class="form-group">
-              <label>Фото</label>
+              <label>Изображение</label>
               <single-image-uploader
                 :hide-upload-icon="!!category.logo"
                 :image="category.logo"
                 :on-change="handleLogoChanged"
                 :on-remove="handleLogoRemoved"
+                tip="рек. размер 226*226"
               />
             </div>
           </div>
           <div class="col-12">
             <div class="form-group">
               <label>Баннер</label>
-              <single-image-uploader
+              <single-media-uploader
                 :hide-upload-icon="!!category.banner"
                 :image="category.banner"
                 :on-change="handleBannerChanged"
                 :on-remove="handleBannerRemoved"
+                tip="рек.размер 984*458"
               />
             </div>
           </div>
@@ -94,17 +96,32 @@
                 :image="category.banner_menu"
                 :on-change="handleBannerMenuChanged"
                 :on-remove="handleBannerMenuRemoved"
+                tip="рек.размер 404*246"
               />
             </div>
           </div>
           <div class="col-12">
             <div class="form-group">
-              <label>Баннер для МП</label>
+              <label>Изображение для МП</label>
               <single-image-uploader
                 :hide-upload-icon="!!category.banner_mobile"
                 :image="category.banner_mobile"
                 :on-change="handleBannerMobileChanged"
                 :on-remove="handleBannerMobileRemoved"
+              />
+            </div>
+          </div>
+          <div
+            v-if="!category.parent"
+            class="col-12"
+          >
+            <div class="form-group">
+              <label>Блок Слайдер</label>
+              <multiple-image-uploader
+                :images="category.slider"
+                :on-change="handleSliderChanged"
+                :on-remove="handleSliderRemoved"
+                tip="рек.размер 984*458"
               />
             </div>
           </div>
@@ -151,7 +168,7 @@
           </el-button>
           <el-button
             type="primary"
-            @click="updateUser"
+            @click="updateCategory"
           >
             Обновить
           </el-button>
@@ -165,6 +182,9 @@
 import BaseInput from '@/components/base/BaseInput.vue'
 import SingleImageUploader from '@/components/base/SingleImageUploader.vue'
 import categoryService from '@/services/categoryService'
+import SingleMediaUploader from '@/components/base/SingleMediaUploader.vue'
+import MultipleImageUploader from '@/components/base/MultipleImageUploader.vue'
+
 import { useStore } from 'vuex'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -190,14 +210,17 @@ let category = ref({
   banner: '',
   banner_menu: '',
   banner_mobile: '',
+  slider: [],
+  deleted_files: [],
 })
 
 onMounted(async () => {
   const { data: userData } = await categoryService.get(route.params.id)
   category.value = userData
+  category.value.deleted_files=[]
 })
 
-const updateUser = async () => {
+const updateCategory = async () => {
   const {} = await categoryService.update(route.params.id, category.value)
   await router.push({ name: 'categories' })
 }
@@ -232,6 +255,17 @@ const handleBannerMenuChanged = (file) => {
 const handleBannerMenuRemoved = async () => {
   category.value.banner_menu_upload = ''
   category.value.banner_menu = ''
+}
+//Slider
+const handleSliderChanged = (file,fileList) => {
+  category.value.slider_upload = fileList
+}
+const handleSliderRemoved = async (file,fileList) => {
+  category.value.slider = []
+  category.value.slider = fileList
+  if (file.id) {
+    category.value.deleted_files.push(file.id)
+  }
 }
 
 </script>

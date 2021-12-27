@@ -62,6 +62,16 @@
             sortable="custom"
           />
           <el-table-column
+            prop="parent.title"
+            min-width="220"
+            label="Родительская категория"
+            sortable="custom"
+          >
+            <template #default="scope">
+              {{ scope.row.parent?.title??'---' }}
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="subtitle"
             label="Подзаголовок"
             min-width="150"

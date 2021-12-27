@@ -38,10 +38,25 @@ export default {
       if(data[key]==='null' || data[key]===null) {
         data[key]=''
       }
-      if (!(data[key] instanceof File) && (key === 'logo' || key === 'banner') && data[key] !== '' && data[key] !== null) {
-        return
+      if (key === 'slider_upload') {
+        data[key].forEach((el) => {
+          if (el.raw) {
+            formData.append(`${key}[]`, el.raw)
+          }
+        })
+      } else {
+        if (Array.isArray(data[key])) {
+
+          let arr = data[key]
+
+          for (let i = 0; i < arr.length; i++) {
+            formData.append(`${key}[${i}]`, arr[i])
+          }
+
+          return
+        }
+        formData.append(`${key}`, data[key])
       }
-      formData.append(`${key}`, data[key])
     })
 
     return api.post(`${ENDPOINT}/${id}`, formData, {

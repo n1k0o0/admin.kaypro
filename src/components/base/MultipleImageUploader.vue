@@ -14,6 +14,11 @@
     <template #default>
       <el-icon><plus /></el-icon>
     </template>
+    <template #tip>
+      <div class="el-upload__tip">
+        {{ tip }}
+      </div>
+    </template>
   </el-upload>
   <el-dialog v-model="dialogVisible">
     <img
@@ -33,6 +38,10 @@ export default {
     images: {
       type: Object,
       default: null,
+    },
+    tip: {
+      type: String,
+      default: '',
     },
     max: {
       type: Number,

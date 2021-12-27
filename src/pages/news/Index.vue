@@ -70,6 +70,7 @@
           v-loading="loading"
           :data="news"
           :empty-text="'Нет данных'"
+          :default-sort="{ prop: 'published_at', order: 'descending' }"
           @sort-change="sorUsers"
         >
           <el-table-column
@@ -172,7 +173,7 @@ let data = reactive({
   author: '',
   published_at: '',
   visibility: '',
-  sort: 'id',
+  sort: 'published_at',
   sort_type: 'desc',
 })
 
