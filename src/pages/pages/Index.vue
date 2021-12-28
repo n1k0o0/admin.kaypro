@@ -56,6 +56,12 @@
           >
             <Cooperation :cooperation="collaborations" />
           </el-tab-pane>
+          <el-tab-pane
+            label="Аренда Студии"
+            name="studioRent"
+          >
+            <StudioRent :studio="studios" />
+          </el-tab-pane>
         </el-tabs>
       </div>
     </div>
@@ -70,6 +76,7 @@ import Documents from '@/pages/pages/Documents.vue'
 import Cooperation from '@/pages/pages/Cooperation.vue'
 import Home from '@/pages/pages/Home.vue'
 import Catalog from '@/pages/pages/Catalog.vue'
+import StudioRent from '@/pages/pages/StudioRent.vue'
 import pagesService from '@/services/pagesService'
 
 import { onMounted, ref } from 'vue'
@@ -86,6 +93,7 @@ let helps = ref({})
 let collaborations = ref({})
 let homes = ref({})
 let catalogs = ref({})
+let studios = ref({})
 onMounted(async () => {
   const { data: dataPages } = await pagesService.loadPages()
   abouts.value = dataPages.filter(el => el.name === 'about')[0]
@@ -95,6 +103,7 @@ onMounted(async () => {
   collaborations.value = dataPages.filter(el => el.name === 'cooperation')[0]
   homes.value = dataPages.filter(el => el.name === 'home')[0]
   catalogs.value = dataPages.filter(el => el.name === 'catalog')[0]
+  studios.value = dataPages.filter(el => el.name === 'studio_rent')[0]
 })
 
 </script>
