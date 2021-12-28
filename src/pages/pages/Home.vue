@@ -678,9 +678,21 @@ let homes = ref({
   slider: [],
   content: {
     banners: {},
-    product: {},
-    line: {},
-    line_2: [{},{}],
+    product: {
+      description,
+      title
+    },
+    line: {
+      description,
+      title
+    },
+    line_2: [{
+      link,
+      title
+    },{
+      link,
+      title
+    }],
     new_products: [],
     popular: [],
     bestsellers: [],
