@@ -6,6 +6,7 @@
       :value="value"
       v-bind="$attrs"
       :disabled="disabled"
+      :type="type"
       :aria-invalid="error?true:null"
       @input="updateInput"
     />
@@ -30,6 +31,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    type: {
+      type: String,
+      default: 'text'
     },
     disabled: {
       type: Boolean,

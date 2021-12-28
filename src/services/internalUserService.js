@@ -3,9 +3,14 @@ import api from './api'
 const ENDPOINT = '/moderators'
 export default {
   USER_TYPES: {
+    super_admin    : 'Суперадмин',
     admin    : 'Админ',
     moderator: 'Модератор',
   },
+
+  SUPER_ADMIN:'super_admin',
+  MODERATOR:'moderator',
+  ADMIN:'admin',
 
   USER_STATUSES: {
     email_verification: 'Не подтвержден',

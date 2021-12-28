@@ -12,7 +12,7 @@
           </h3>
         </div>
         <div
-          v-if="auth.type==='admin'"
+          v-if="isAdmin"
           class="card-toolbar"
         >
           <a
@@ -142,13 +142,13 @@
           >
             <template #default="scope">
               <el-button
-                v-if="auth.type==='admin'"
+                v-if="(isAdmin && scope.row.type===internalUserService.MODERATOR)|| isSuperAdmin && (scope.row.type!==internalUserService.SUPER_ADMIN || scope.row.id===auth.id) "
                 :icon="Edit"
                 type="primary"
                 @click="$router.push({name: 'internal-users-edit', params: {id: scope.row.id}})"
               />
               <el-popconfirm
-                v-if="scope.row.type==='moderator'"
+                v-if="(scope.row.type===internalUserService.MODERATOR && isAdmin ) || isSuperAdmin && scope.row.type!==internalUserService.SUPER_ADMIN"
                 cancel-button-text="Отмена"
                 confirm-button-text="Да"
                 :title="`Вы действительно хотите удалить ${internalUserService.getUserType(scope.row.type)}а?`"
@@ -185,9 +185,9 @@ import usePagination from '@/composables/usePagination'
 
 const { pagination, setPagination, currentPage, perPage, perPageCounts } = usePagination()
 import { computed, onMounted, reactive, ref } from 'vue'
+import internalUserService from '@/services/internalUserService'
 
 const store = useStore()
-import internalUserService from '@/services/internalUserService'
 import { useStore } from 'vuex'
 
 let loading = ref(false)
@@ -235,7 +235,8 @@ const deleteUser = async (user) => {
 }
 
 const auth = computed(() => store.getters['auth/GET_USER'])
-
+const isSuperAdmin = computed(() => store.getters['auth/IS_SUPER_ADMIN'])
+const isAdmin = computed(() => store.getters['auth/IS_ADMIN'])
 </script>
 
 

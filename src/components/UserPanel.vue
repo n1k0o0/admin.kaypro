@@ -32,7 +32,7 @@
             href="#"
             class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"
           >
-            {{ $store.getters['auth/GET_USER'].name }}
+            {{ $store.getters['auth/GET_USER']?.name }}
           </a>
           <div class="text-muted mt-1">
             Администратор
@@ -83,7 +83,7 @@
                   </span>
                 </span>
                 <span class="navi-text text-muted text-hover-primary">{{
-                  $store.getters['auth/GET_USER'].email
+                  $store.getters['auth/GET_USER']?.email
                 }}  </span>
               </span>
             </a>

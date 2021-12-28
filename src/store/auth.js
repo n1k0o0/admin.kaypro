@@ -16,9 +16,15 @@ const getters = {
   GET_USER (state) {
     return state.user
   },
+  IS_SUPER_ADMIN (state) {
+    return state.user?.type==='super_admin'
+  },
+  IS_ADMIN (state) {
+    return state.user?.type==='admin' || state.user?.type==='super_admin'
+  },
 
   GET_USER_NAME_FIRST_LETTER (state) {
-    if (state.user.first_name) {
+    if (state.user?.first_name) {
       return state.user.first_name[0]
     } else {
       return ''

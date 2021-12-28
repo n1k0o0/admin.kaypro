@@ -10,7 +10,6 @@
     <div class="card-body">
       <div class="row ">
         <!--Слайдер-->
-        <el-divider />
         <div class="col-12 my-4">
           <h3>Слайдер</h3>
         </div>
@@ -152,10 +151,11 @@
         </el-dialog>
 
         <!--Новинки-->
+        <el-divider />
         <div class="col-12 my-4">
           <h3>Новинки</h3>
         </div>
-        <div class="col-12">
+        <div class="col-4">
           <label>Продукты</label>
           <el-select
             v-model="homes.content.new_products"
@@ -230,6 +230,7 @@
           <BaseInput
             v-model="homes.content.line.description"
             clearable
+            type="textarea"
             :label="'Описание'"
           />
         </div>
@@ -263,7 +264,7 @@
         <div class="col-12 my-4">
           <h3>Хиты продаж</h3>
         </div>
-        <div class="col-12">
+        <div class="col-4">
           <label>Продукты</label>
           <el-select
             v-model="homes.content.bestsellers"
@@ -327,7 +328,7 @@
         <div class="col-12 my-4">
           <h3>Товар</h3>
         </div>
-        <div class="col-12">
+        <div class="col-4">
           <label>Продукты</label>
           <el-select
             v-model="homes.content.product"
@@ -422,6 +423,7 @@
           <BaseInput
             v-model="homes.content.product.description"
             clearable
+            type="textarea"
             :label="'Описание'"
           />
         </div>
@@ -443,7 +445,7 @@
         <div class="col-12 my-4">
           <h3>Популярные</h3>
         </div>
-        <div class="col-12">
+        <div class="col-4">
           <label>Продукты</label>
           <el-select
             v-model="homes.content.popular"

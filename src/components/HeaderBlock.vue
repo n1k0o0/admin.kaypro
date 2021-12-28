@@ -40,7 +40,7 @@
           >
             <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Здравствуйте,</span>
             <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{
-              $store.getters['auth/GET_USER'].name
+              $store.getters['auth/GET_USER']?.name
             }}</span>
             <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
               <span class="symbol-label text-dark font-size-h5 font-weight-bold">{{ getNameFirstLetter() }}</span>
