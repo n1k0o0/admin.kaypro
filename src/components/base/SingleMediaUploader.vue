@@ -12,11 +12,12 @@
     action="#"
     list-type="text"
   >
-    <el-icon
-      class="avatar-uploader-icon"
+    <el-button
+      size="small"
+      type="primary"
     >
-      <plus />
-    </el-icon>
+      Нажмите, чтобы загрузить
+    </el-button>
     <template #tip>
       <div class="el-upload__tip">
         {{ tip }}
@@ -26,13 +27,8 @@
 </template>
 
 <script>
-import {Plus} from '@element-plus/icons'
-
 export default {
   name: "SingleImageUploader",
-  components:{
-    Plus
-  },
   props: {
     image: {
       type: Object,

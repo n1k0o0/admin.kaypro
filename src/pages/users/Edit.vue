@@ -56,6 +56,12 @@
               :label="'Адрес'"
             />
           </div>
+          <div class="col-12">
+            <el-checkbox
+              v-model="user.subscribe"
+              label="Согласие на информирование"
+            />
+          </div>
           <template v-if="user.entity">
             <div class="col-12">
               <BaseInput
@@ -138,36 +144,37 @@
 </template>
 
 <script setup>
-import BaseInput                    from '@/components/base/BaseInput.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 import { computed, onMounted, ref } from 'vue'
 
-import userService             from '@/services/userService'
+import userService from '@/services/userService'
 import { useRoute, useRouter } from 'vue-router'
 
-const route  = useRoute()
+const route = useRoute()
 const router = useRouter()
-let loading  = ref(false)
-let user     = ref({
-  status        : '',
-  entity_status : '',
+let loading = ref(false)
+let user = ref({
+  status: '',
+  subscribe: false,
+  entity_status: '',
   entity_address: '',
-  psrn          : '',
-  itn           : '',
-  entity_name   : '',
-  entity        : '',
-  address       : '',
-  phone         : '',
-  email         : '',
-  patronymic    : '',
-  last_name     : '',
-  first_name    : '',
+  psrn: '',
+  itn: '',
+  entity_name: '',
+  entity: '',
+  address: '',
+  phone: '',
+  email: '',
+  patronymic: '',
+  last_name: '',
+  first_name: '',
 })
 
 const auth = computed(() => store.getters['auth/GET_USER'])
 
 onMounted(async () => {
   const { data: userData } = await userService.getUser(route.params.id)
-  user.value               = userData
+  user.value = userData
 })
 
 const updateUser = async () => {

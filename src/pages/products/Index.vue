@@ -98,7 +98,12 @@
             sortable="custom"
           >
             <template #default="scope">
-              {{ scope.row.status?'Активен':'Неактивен' }}
+              <el-switch
+                v-model="scope.row.status"
+                :active-value="1"
+                :inactive-value="0"
+                @change="setStatus(scope.row)"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -159,6 +164,15 @@ onMounted(async () => {
 const onCurrentPageUpdated = async (page) => {
   currentPage.value = page
   await search()
+}
+const setStatus = async (product) => {
+  if (product.id){
+    try {
+      const {} = await productService.update(product.meta_slug, ({ status:product.status }))
+    }catch (e) {
+      product.status= +!product.status
+    }
+  }
 }
 const search = async () => {
   try {

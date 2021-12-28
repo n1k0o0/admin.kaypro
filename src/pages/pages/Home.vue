@@ -9,196 +9,6 @@
     </div>
     <div class="card-body">
       <div class="row ">
-        <div class="col-12 my-4">
-          <h3>Новинки</h3>
-        </div>
-        <div class="col-12">
-          <label>Продукты</label>
-          <el-select
-            v-model="homes.content.new_products"
-            placeholder="Select"
-            filterable
-            multiple
-            value-key="id"
-          >
-            <el-option
-              v-for="item in products"
-              :key="item"
-              :label="item.name"
-              :value="item"
-            />
-          </el-select>
-        </div>
-        <table class="table mt-4">
-          <thead>
-            <tr>
-              <th scope="col">
-                Id
-              </th>
-              <th scope="col">
-                Наименование
-              </th>
-              <th scope="col">
-                Арткул
-              </th>
-              <th scope="col">
-                Управление
-              </th>
-            </tr>
-          </thead>
-          <VueDraggable
-            v-model="homes.content.new_products"
-            tag="tbody"
-            item-key="id"
-            @change="onMoveNewProduct"
-          >
-            <template #item="{ element }">
-              <tr>
-                <td scope="row">
-                  {{ element.id }}
-                </td>
-                <td>{{ element.name }}</td>
-                <td>{{ element.vendor_code }}</td>
-                <td>
-                  <el-button
-                    :icon="Delete"
-                    type="danger"
-                    @click="deleteNewProduct(element)"
-                  />
-                </td>
-              </tr>
-            </template>
-          </VueDraggable>
-        </table>
-
-        <!--Популярные-->
-        <el-divider />
-        <div class="col-12 my-4">
-          <h3>Популярные</h3>
-        </div>
-        <div class="col-12">
-          <label>Продукты</label>
-          <el-select
-            v-model="homes.content.popular"
-            placeholder="Select"
-            filterable
-            multiple
-            value-key="id"
-          >
-            <el-option
-              v-for="item in products"
-              :key="item"
-              :label="item.name"
-              :value="item"
-            />
-          </el-select>
-        </div>
-        <table class="table mt-4">
-          <thead>
-            <tr>
-              <th scope="col">
-                Id
-              </th>
-              <th scope="col">
-                Наименование
-              </th>
-              <th scope="col">
-                Арткул
-              </th>
-              <th scope="col">
-                Управление
-              </th>
-            </tr>
-          </thead>
-          <VueDraggable
-            v-model="homes.content.popular"
-            tag="tbody"
-            item-key="id"
-            @change="onMoveNewProduct"
-          >
-            <template #item="{ element }">
-              <tr>
-                <td scope="row">
-                  {{ element.id }}
-                </td>
-                <td>{{ element.name }}</td>
-                <td>{{ element.vendor_code }}</td>
-                <td>
-                  <el-button
-                    :icon="Delete"
-                    type="danger"
-                    @click="deletePopularProduct(element)"
-                  />
-                </td>
-              </tr>
-            </template>
-          </VueDraggable>
-        </table>
-
-        <!--Хиты продаж-->
-        <el-divider />
-        <div class="col-12 my-4">
-          <h3>Хиты продаж</h3>
-        </div>
-        <div class="col-12">
-          <label>Продукты</label>
-          <el-select
-            v-model="homes.content.bestsellers"
-            placeholder="Select"
-            filterable
-            multiple
-            value-key="id"
-          >
-            <el-option
-              v-for="item in products"
-              :key="item"
-              :label="item.name"
-              :value="item"
-            />
-          </el-select>
-        </div>
-        <table class="table mt-4">
-          <thead>
-            <tr>
-              <th scope="col">
-                Id
-              </th>
-              <th scope="col">
-                Наименование
-              </th>
-              <th scope="col">
-                Арткул
-              </th>
-              <th scope="col">
-                Управление
-              </th>
-            </tr>
-          </thead>
-          <VueDraggable
-            v-model="homes.content.bestsellers"
-            tag="tbody"
-            item-key="id"
-            @change="onMoveBestSellerProduct"
-          >
-            <template #item="{ element }">
-              <tr>
-                <td scope="row">
-                  {{ element.id }}
-                </td>
-                <td>{{ element.name }}</td>
-                <td>{{ element.vendor_code }}</td>
-                <td>
-                  <el-button
-                    :icon="Delete"
-                    type="danger"
-                    @click="deleteBestSellerProduct(element)"
-                  />
-                </td>
-              </tr>
-            </template>
-          </VueDraggable>
-        </table>
-
         <!--Слайдер-->
         <el-divider />
         <div class="col-12 my-4">
@@ -326,6 +136,7 @@
                 :image="slide.image"
                 :on-change="handleSlideChanged"
                 :on-remove="handleSlideRemoved"
+                tip="рек. размер - 1440х770"
               />
             </el-form-item>
           </el-form>
@@ -339,6 +150,177 @@
             </span>
           </template>
         </el-dialog>
+
+        <!--Новинки-->
+        <div class="col-12 my-4">
+          <h3>Новинки</h3>
+        </div>
+        <div class="col-12">
+          <label>Продукты</label>
+          <el-select
+            v-model="homes.content.new_products"
+            placeholder="Select"
+            filterable
+            multiple
+            value-key="id"
+          >
+            <el-option
+              v-for="item in products"
+              :key="item"
+              :label="item.name"
+              :value="item"
+            />
+          </el-select>
+        </div>
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th scope="col">
+                Id
+              </th>
+              <th scope="col">
+                Наименование
+              </th>
+              <th scope="col">
+                Артикул
+              </th>
+              <th scope="col">
+                Управление
+              </th>
+            </tr>
+          </thead>
+          <VueDraggable
+            v-model="homes.content.new_products"
+            tag="tbody"
+            item-key="id"
+            @change="onMoveNewProduct"
+          >
+            <template #item="{ element }">
+              <tr>
+                <td scope="row">
+                  {{ element.id }}
+                </td>
+                <td>{{ element.name }}</td>
+                <td>{{ element.vendor_code }}</td>
+                <td>
+                  <el-button
+                    :icon="Delete"
+                    type="danger"
+                    @click="deleteNewProduct(element)"
+                  />
+                </td>
+              </tr>
+            </template>
+          </VueDraggable>
+        </table>
+
+        <!--Линейка-->
+        <el-divider />
+        <div class="col-12 my-4">
+          <h3>Линейка</h3>
+        </div>
+        <div class="col-12">
+          <BaseInput
+            v-model="homes.content.line.title"
+            clearable
+            :label="'Заголовок'"
+          />
+        </div>
+        <div class="col-12">
+          <BaseInput
+            v-model="homes.content.line.description"
+            clearable
+            :label="'Описание'"
+          />
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label>Фото продукции</label>
+            <single-image-uploader
+              :hide-upload-icon="!!homes.line_image"
+              :image="homes.line_image"
+              :on-change="handleLineImageChanged"
+              :on-remove="handleLineImageRemoved"
+              tip="рек. размер -720х600"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label>Фото или видео</label>
+            <single-media-uploader
+              :hide-upload-icon="!!homes.line_media"
+              :image="homes.line_media"
+              :on-change="handleMediaChanged"
+              :on-remove="handleMediaRemoved"
+              tip="рек.размер -720х600"
+            />
+          </div>
+        </div>
+
+        <!--Хиты продаж-->
+        <el-divider />
+        <div class="col-12 my-4">
+          <h3>Хиты продаж</h3>
+        </div>
+        <div class="col-12">
+          <label>Продукты</label>
+          <el-select
+            v-model="homes.content.bestsellers"
+            placeholder="Select"
+            filterable
+            multiple
+            value-key="id"
+          >
+            <el-option
+              v-for="item in products"
+              :key="item"
+              :label="item.name"
+              :value="item"
+            />
+          </el-select>
+        </div>
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th scope="col">
+                Id
+              </th>
+              <th scope="col">
+                Наименование
+              </th>
+              <th scope="col">
+                Артикул
+              </th>
+              <th scope="col">
+                Управление
+              </th>
+            </tr>
+          </thead>
+          <VueDraggable
+            v-model="homes.content.bestsellers"
+            tag="tbody"
+            item-key="id"
+            @change="onMoveBestSellerProduct"
+          >
+            <template #item="{ element }">
+              <tr>
+                <td scope="row">
+                  {{ element.id }}
+                </td>
+                <td>{{ element.name }}</td>
+                <td>{{ element.vendor_code }}</td>
+                <td>
+                  <el-button
+                    :icon="Delete"
+                    type="danger"
+                    @click="deleteBestSellerProduct(element)"
+                  />
+                </td>
+              </tr>
+            </template>
+          </VueDraggable>
+        </table>
 
         <!--Товар-->
         <el-divider />
@@ -371,7 +353,7 @@
                 Наименование
               </th>
               <th scope="col">
-                Арткул
+                Артикул
               </th>
               <th scope="col">
                 Управление
@@ -435,29 +417,10 @@
             clearable
             :label="'Заголовок'"
           />
-        </div><div class="col-12">
+        </div>
+        <div class="col-12">
           <BaseInput
             v-model="homes.content.product.description"
-            clearable
-            :label="'Описание'"
-          />
-        </div>
-
-        <!--Линейка-->
-        <el-divider />
-        <div class="col-12 my-4">
-          <h3>Линейка</h3>
-        </div>
-        <div class="col-12">
-          <BaseInput
-            v-model="homes.content.line.title"
-            clearable
-            :label="'Заголовок'"
-          />
-        </div>
-        <div class="col-12">
-          <BaseInput
-            v-model="homes.content.line.description"
             clearable
             :label="'Описание'"
           />
@@ -466,24 +429,78 @@
           <div class="form-group">
             <label>Фото продукции</label>
             <single-image-uploader
-              :hide-upload-icon="!!homes.line_image"
-              :image="homes.line_image"
-              :on-change="handleLineImageChanged"
-              :on-remove="handleLineImageRemoved"
+              :hide-upload-icon="!!homes.banner"
+              :image="homes.banner"
+              :on-change="handleBannerChanged"
+              :on-remove="handleBannerRemoved"
+              tip="рек. размер 720*615"
             />
           </div>
+        </div>
+
+        <!--Популярные-->
+        <el-divider />
+        <div class="col-12 my-4">
+          <h3>Популярные</h3>
         </div>
         <div class="col-12">
-          <div class="form-group">
-            <label>Фото или видео</label>
-            <single-media-uploader
-              :hide-upload-icon="!!homes.line_media"
-              :image="homes.line_media"
-              :on-change="handleMediaChanged"
-              :on-remove="handleMediaRemoved"
+          <label>Продукты</label>
+          <el-select
+            v-model="homes.content.popular"
+            placeholder="Select"
+            filterable
+            multiple
+            value-key="id"
+          >
+            <el-option
+              v-for="item in products"
+              :key="item"
+              :label="item.name"
+              :value="item"
             />
-          </div>
+          </el-select>
         </div>
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th scope="col">
+                Id
+              </th>
+              <th scope="col">
+                Наименование
+              </th>
+              <th scope="col">
+                Артикул
+              </th>
+              <th scope="col">
+                Управление
+              </th>
+            </tr>
+          </thead>
+          <VueDraggable
+            v-model="homes.content.popular"
+            tag="tbody"
+            item-key="id"
+            @change="onMoveNewProduct"
+          >
+            <template #item="{ element }">
+              <tr>
+                <td scope="row">
+                  {{ element.id }}
+                </td>
+                <td>{{ element.name }}</td>
+                <td>{{ element.vendor_code }}</td>
+                <td>
+                  <el-button
+                    :icon="Delete"
+                    type="danger"
+                    @click="deletePopularProduct(element)"
+                  />
+                </td>
+              </tr>
+            </template>
+          </VueDraggable>
+        </table>
 
         <!--Линейка товара-->
         <el-divider />
@@ -513,6 +530,7 @@
                 :image="homes.content_image1"
                 :on-change="handleLine2Image1Changed"
                 :on-remove="handleLine2Image1Removed"
+                tip="рек. размер 643х395"
               />
             </div>
           </div>
@@ -540,6 +558,7 @@
                 :image="homes.content_image2"
                 :on-change="handleLine2Image2Changed"
                 :on-remove="handleLine2Image2Removed"
+                tip="рек. размер 643х395"
               />
             </div>
           </div>
@@ -558,11 +577,12 @@
               :max="8"
               :on-change="handleInstagramChanged"
               :on-remove="handleInstagramRemoved"
+              tip="рек. размер - 420х420"
             />
           </div>
         </div>
 
-
+        <!--Meta-->
         <el-divider />
         <div class="col-12">
           <BaseInput
@@ -585,6 +605,15 @@
             :label="'SEO keywords'"
           />
         </div>
+
+        <!--Dialog image preview        -->
+        <el-dialog v-model="dialogVisible">
+          <img
+            style="width:100%;"
+            :src="dialogImageUrl"
+            alt=""
+          >
+        </el-dialog>
       </div>
     </div>
     <div class="card-footer d-flex justify-content-end">
@@ -627,19 +656,21 @@ const props = defineProps({
 let loading = ref(false)
 let dialogSlideVisible = ref(false)
 let newSlide = ref(false)
+let dialogVisible = ref(false)
+let dialogImageUrl = ref('')
 let slide = ref({})
 let bestsellers = ref([])
 let products = ref([])
 
 let newProducts = ref([])
 let homes = ref({
-  logo: '',
+  banner: '',
   text_image1: '',
   text_image2: '',
   line_image: '',
   line_media: '',
-  content_image_1: '',
-  content_image_2: '',
+  content_image1: '',
+  content_image2: '',
   instagram: [],
   deleted_files: [],
   slider: [],
@@ -666,7 +697,6 @@ onMounted(async () => {
   products.value = data
   homes.value.deleted_files=[]
 })
-
 
 const updateHome = async () => {
   if (homes.value.instagram.length<4 || homes.value.instagram.length>8){
@@ -797,6 +827,21 @@ const handleLine2Image2Removed = async () => {
   homes.value.contentImage2 = ''
   homes.value.content_image2 = ''
 }
+
+// Продукт
+const handleBannerChanged = (file) => {
+  homes.value.banner_upload = file.raw
+  homes.value.banner = file
+}
+const handleBannerRemoved = async () => {
+  homes.value.banner_upload = ''
+  homes.value.banner = ''
+}
+/*const handlePictureCardPreview=(file) => {
+  dialogImageUrl.value=file.url
+  dialogVisible.value=true
+}*/
+
 // Instagram
 const handleInstagramChanged = (file,fileList) => {
   homes.value.instagram = fileList

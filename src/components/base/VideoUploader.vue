@@ -15,6 +15,11 @@
     >
       Нажмите, чтобы загрузить
     </el-button>
+    <template #tip>
+      <div class="el-upload__tip">
+        {{ tip }}
+      </div>
+    </template>
   </el-upload>
 </template>
 
@@ -26,6 +31,10 @@ export default {
     video: {
       type: Object,
       default: null,
+    },
+    tip: {
+      type: String,
+      default: '',
     },
     hideUploadIcon: {
       default: false,

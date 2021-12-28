@@ -4,7 +4,7 @@
     :auto-upload="false"
     class="single-image-uploader"
     :class="{'hide-upload': hideUploadIcon}"
-    :on-preview="onPreview"
+    :on-preview="handlePictureCardPreview"
     :on-remove="onRemove"
     :on-change="onChange"
     :file-list="image ? [image] : []"
@@ -24,6 +24,13 @@
       </div>
     </template>
   </el-upload>
+  <el-dialog v-model="dialogVisible">
+    <img
+      style="width:100%;"
+      :src="dialogImageUrl"
+      alt=""
+    >
+  </el-dialog>
 </template>
 
 <script>
@@ -59,6 +66,18 @@ export default {
     onChange: {
       required: true,
       type: Function,
+    },
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      dialogImageUrl: '',
+    }
+  },
+  methods: {
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
     },
   }
 }

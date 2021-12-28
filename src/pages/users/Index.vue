@@ -140,8 +140,8 @@
             sortable="custom"
           />
           <el-table-column
-            label="Согласие на информирование"
-            min-width="260"
+            label="Согласие на инф-ние"
+            min-width="110"
             prop="subscribe"
             align="center"
             sortable="custom"
