@@ -94,13 +94,14 @@ import pagesService from '@/services/pagesService'
 
 const props = defineProps({
   contact: {
-    type: Array,
+    type: Object,
     required: true
   },
 })
 let loading = ref(false)
 let activeName = ref('contacts')
 let contacts = ref({
+  name:'',
   content: {
     phone: '',
     email: '',
@@ -128,7 +129,3 @@ const updateContact = async () => {
   await pagesService.update(contacts.value.name, contacts.value)
 }
 </script>
-
-<style scoped>
-
-</style>

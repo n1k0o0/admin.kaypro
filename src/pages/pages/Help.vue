@@ -153,7 +153,7 @@ import { ElNotification } from 'element-plus'
 
 const props = defineProps({
   help: {
-    type: Array,
+    type: Object,
     required: true
   },
 })
@@ -209,6 +209,3 @@ const updateHelp = async () => {
 }
 </script>
 
-<style scoped>
-
-</style>

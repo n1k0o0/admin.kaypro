@@ -153,13 +153,14 @@ import { ElNotification } from 'element-plus'
 
 const props = defineProps({
   document: {
-    type: Array,
+    type: Object,
     required: true
   },
 })
 let loading = ref(false)
 let activeName = ref('documents')
 let documents = ref({
+  name: '',
   logo: '',
   text_image_1: '',
   text_image_2: '',

@@ -36,8 +36,6 @@ export default {
             formData.append(`${key}[]`, el.raw)
           }
         })
-      }else if (!(data[key] instanceof File) && (key==='logo' || key==='contentImage_1' || key==='contentImage_2') && data[key]!=='' && data[key]!==null) {
-        return
       }
       if (key==='deleted_files') {
 

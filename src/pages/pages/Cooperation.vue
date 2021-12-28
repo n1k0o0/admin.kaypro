@@ -113,13 +113,14 @@ import { ElNotification } from 'element-plus'
 
 const props = defineProps({
   cooperation: {
-    type: Array,
+    type: Object,
     required: true
   },
 })
 let loading = ref(false)
 
 let collaborations = ref({
+  name: '',
   banner: '',
   text_image_1: '',
   text_image_2: '',

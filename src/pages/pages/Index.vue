@@ -19,6 +19,12 @@
             <Home :home="homes" />
           </el-tab-pane>
           <el-tab-pane
+            label="Каталог"
+            name="catalog"
+          >
+            <Catalog :catalog="catalogs" />
+          </el-tab-pane>
+          <el-tab-pane
             label="О компании"
             name="about"
           >
@@ -63,6 +69,7 @@ import Help from '@/pages/pages/Help.vue'
 import Documents from '@/pages/pages/Documents.vue'
 import Cooperation from '@/pages/pages/Cooperation.vue'
 import Home from '@/pages/pages/Home.vue'
+import Catalog from '@/pages/pages/Catalog.vue'
 import pagesService from '@/services/pagesService'
 
 import { onMounted, ref } from 'vue'
@@ -78,6 +85,7 @@ let documents = ref({})
 let helps = ref({})
 let collaborations = ref({})
 let homes = ref({})
+let catalogs = ref({})
 onMounted(async () => {
   const { data: dataPages } = await pagesService.loadPages()
   abouts.value = dataPages.filter(el => el.name === 'about')[0]
@@ -86,6 +94,7 @@ onMounted(async () => {
   documents.value = dataPages.filter(el => el.name === 'document')[0]
   collaborations.value = dataPages.filter(el => el.name === 'cooperation')[0]
   homes.value = dataPages.filter(el => el.name === 'home')[0]
+  catalogs.value = dataPages.filter(el => el.name === 'catalog')[0]
 })
 
 </script>

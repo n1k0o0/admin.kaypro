@@ -54,7 +54,7 @@
           >
             <template #item="{ element }">
               <tr>
-                <td scope="row">
+                <td>
                   {{ element.id }}
                 </td>
                 <td>{{ element.title }}</td>
@@ -197,7 +197,7 @@
           >
             <template #item="{ element }">
               <tr>
-                <td scope="row">
+                <td>
                   {{ element.id }}
                 </td>
                 <td>{{ element.name }}</td>
@@ -306,7 +306,7 @@
           >
             <template #item="{ element }">
               <tr>
-                <td scope="row">
+                <td>
                   {{ element.id }}
                 </td>
                 <td>{{ element.name }}</td>
@@ -487,7 +487,7 @@
           >
             <template #item="{ element }">
               <tr>
-                <td scope="row">
+                <td>
                   {{ element.id }}
                 </td>
                 <td>{{ element.name }}</td>
@@ -651,7 +651,7 @@ import { ElNotification } from 'element-plus'
 const store = useStore()
 const props = defineProps({
   home: {
-    type: Array,
+    type: Object,
     required: true
   },
 })
@@ -660,12 +660,19 @@ let dialogSlideVisible = ref(false)
 let newSlide = ref(false)
 let dialogVisible = ref(false)
 let dialogImageUrl = ref('')
-let slide = ref({})
+let slide = ref({
+  title:'',
+  subtitle: '',
+  image:'',
+  button_text:'',
+  link:'',
+})
 let bestsellers = ref([])
 let products = ref([])
 
 let newProducts = ref([])
 let homes = ref({
+  name: '',
   banner: '',
   text_image1: '',
   text_image2: '',
@@ -679,19 +686,19 @@ let homes = ref({
   content: {
     banners: {},
     product: {
-      description:'',
-      title:''
+      description: '',
+      title: ''
     },
     line: {
-      description:'',
-      title:''
+      description: '',
+      title: ''
     },
     line_2: [{
-      link:'',
-      title:''
-    },{
-      link:'',
-      title:''
+      link: '',
+      title: ''
+    }, {
+      link: '',
+      title: ''
     }],
     new_products: [],
     popular: [],
@@ -709,24 +716,39 @@ watch(() => props.home, () => {
 onMounted(async () => {
   const { data: { data: data } } = await productService.load()
   products.value = data
-  homes.value.deleted_files=[]
+  homes.value.deleted_files = []
 })
 
 const updateHome = async () => {
-  if (homes.value.instagram.length<4 || homes.value.instagram.length>8){
+  if (homes.value.instagram.length < 4 || homes.value.instagram.length > 8) {
     ElNotification.warning('Instagram изображения должен быть минумиум 4, максимум 8')
     return
   }
-  homes.value.content.new_products=homes.value.content.new_products.map(product=>({id:product.id, name:product.name,logo:product.logo??'',vendor_code:product.vendor_code}))
-  homes.value.content.bestsellers=homes.value.content.bestsellers.map(product=>({id:product.id, name:product.name,logo:product.logo??'',vendor_code:product.vendor_code}))
-  homes.value.content.popular=homes.value.content.popular.map(product=>({id:product.id, name:product.name,logo:product.logo??'',vendor_code:product.vendor_code}))
-  homes.value.content.product=({
-    id:homes.value.content.product.id,
-    name:homes.value.content.product.name,
-    title:homes.value.content.product.title,
-    description:homes.value.content.product.description,
-    color:homes.value.content.product.color,
-    background_color:homes.value.content.product.background_color,
+  homes.value.content.new_products = homes.value.content.new_products.map(product => ({
+    id: product.id,
+    name: product.name,
+    logo: product.logo ?? '',
+    vendor_code: product.vendor_code
+  }))
+  homes.value.content.bestsellers = homes.value.content.bestsellers.map(product => ({
+    id: product.id,
+    name: product.name,
+    logo: product.logo ?? '',
+    vendor_code: product.vendor_code
+  }))
+  homes.value.content.popular = homes.value.content.popular.map(product => ({
+    id: product.id,
+    name: product.name,
+    logo: product.logo ?? '',
+    vendor_code: product.vendor_code
+  }))
+  homes.value.content.product = ({
+    id: homes.value.content.product.id,
+    name: homes.value.content.product.name,
+    title: homes.value.content.product.title,
+    description: homes.value.content.product.description,
+    color: homes.value.content.product.color,
+    background_color: homes.value.content.product.background_color,
   })
   await pagesService.update(homes.value.name, homes.value)
 }
@@ -758,7 +780,7 @@ const showSlideDialog = async (row) => {
 }
 const addNewSlide = async () => {
   newSlide.value = true
-  slide.value={model_id:homes.value.id,model_type: "App\\Models\\Page"}
+  slide.value = { model_id: homes.value.id, model_type: 'App\\Models\\Page' }
   dialogSlideVisible.value = true
 }
 const handleSlideChanged = (file) => {
@@ -778,7 +800,7 @@ const onMove = () => {
 const saveSlide = async () => {
   // Create
   if (newSlide.value) {
-    const {data:data}=await sliderService.create(slide.value)
+    const { data: data } = await sliderService.create(slide.value)
     homes.value.slider.push(data)
   } else {
     // Update
@@ -857,10 +879,10 @@ const handleBannerRemoved = async () => {
 }*/
 
 // Instagram
-const handleInstagramChanged = (file,fileList) => {
+const handleInstagramChanged = (file, fileList) => {
   homes.value.instagram = fileList
 }
-const handleInstagramRemoved = async (file,fileList) => {
+const handleInstagramRemoved = async (file, fileList) => {
   homes.value.instagram = []
   homes.value.instagram = fileList
   if (file.id) {
@@ -869,7 +891,3 @@ const handleInstagramRemoved = async (file,fileList) => {
 }
 
 </script>
-
-<style scoped>
-
-</style>

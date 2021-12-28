@@ -149,7 +149,7 @@ import { useStore } from 'vuex'
 
 const props = defineProps({
   about: {
-    type: Array,
+    type: Object,
     required: true
   },
 })
@@ -158,11 +158,12 @@ let loading = ref(false)
 let activeName = ref('about')
 
 let abouts = ref({
+  name: '',
   banner: '',
   content_image1: '',
   content_image2: '',
   content: {
-    text:'',
+    text: '',
     description: '',
   },
   meta_description: '',
@@ -202,7 +203,3 @@ const updateContact = async () => {
   await pagesService.update(abouts.value.name, abouts.value)
 }
 </script>
-
-<style scoped>
-
-</style>
