@@ -679,19 +679,19 @@ let homes = ref({
   content: {
     banners: {},
     product: {
-      description,
-      title
+      description:'',
+      title:''
     },
     line: {
-      description,
-      title
+      description:'',
+      title:''
     },
     line_2: [{
-      link,
-      title
+      link:'',
+      title:''
     },{
-      link,
-      title
+      link:'',
+      title:''
     }],
     new_products: [],
     popular: [],
