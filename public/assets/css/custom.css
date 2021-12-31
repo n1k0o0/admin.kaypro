@@ -30,3 +30,6 @@
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
     width: 100%!important;
 }
+.el-table th.el-table__cell>.cell{
+    word-break:break-word;
+}

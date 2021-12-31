@@ -18,77 +18,16 @@
             <h3>Общее</h3>
           </div>
           <el-divider />
-          <div class="col-12">
-            <BaseInput
-              v-model="data.name"
-              clearable
-              disabled
-              :label="'Наименование'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
-              v-model="data.id_1c"
-              clearable
-              disabled
-              :label="'Идентификатор в 1С'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
-              v-model="data.barcode"
-              clearable
-              disabled
-              :label="'Штрихкод'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
-              v-model="data.category"
-              clearable
-              disabled
-              :label="'Вид номенклатуры'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
-              v-model="data.vendor_code"
-              clearable
-              disabled
-              :label="'Артикул'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
-              v-model="data.unit"
-              clearable
-              disabled
-              :label="'Базовая единица'"
-            />
-          </div><div class="col-12">
-            <BaseInput
-              v-model="data.count"
-              clearable
-              disabled
-              :label="'Остаток'"
-            />
-          </div>
-          <div class="col-12">
-            <BaseInput
-              v-model="data.price"
-              clearable
-              disabled
-              :label="'набор цен'"
-            />
-          </div>
+
+
           <div class="col-12">
             <div class="form-group">
-              <label>Характеристика</label>
+              <label>Описание</label>
               <editor
-                v-model="data.characteristic"
-                maxlength="512"
+                v-model="data.full_description"
+                maxlength="2048"
                 rows="4"
-                placeholder="Не больше 512 символов"
+                placeholder="Не больше 2048 символов"
                 :api-key="$tinyKey"
                 :init="{
                   language: 'ru',
@@ -107,12 +46,12 @@
           </div>
           <div class="col-12">
             <div class="form-group">
-              <label>Развернутое описание товара</label>
+              <label>Характеристики</label>
               <editor
-                v-model="data.full_description"
-                maxlength="2048"
+                v-model="data.characteristic"
+                maxlength="512"
                 rows="4"
-                placeholder="Не больше 2048 символов"
+                placeholder="Не больше 512 символов"
                 :api-key="$tinyKey"
                 :init="{
                   language: 'ru',
@@ -168,13 +107,6 @@
             />
           </div>
           <div class="col-12">
-            <BaseInput
-              v-model="data.dimension"
-              clearable
-              :label="'Габарит'"
-            />
-          </div>
-          <div class="col-12">
             <div class="form-group">
               <label>Статус</label>
               <el-switch
@@ -191,6 +123,7 @@
                 :images="data.logo"
                 :on-change="handleLogoChanged"
                 :on-remove="handleLogoRemoved"
+                tip="первое фото выводится для списка товаров"
               />
             </div>
           </div>
@@ -201,6 +134,7 @@
                 :video="data.video"
                 :on-change="handleVideoChanged"
                 :on-remove="handleVideoRemoved"
+                tip="рек. размер 600х618"
               />
             </div>
           </div>
@@ -236,6 +170,83 @@
               v-model="data.meta_image"
               clearable
               :label="'SEO image'"
+            />
+          </div>
+
+          <el-divider />
+          <div class="col-12">
+            <h3>1C</h3>
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.name"
+              clearable
+              disabled
+              :label="'Наименование'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.id_1c"
+              clearable
+              disabled
+              :label="'Идентификатор в 1С'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.barcode"
+              clearable
+              disabled
+              :label="'Штрихкод'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.category"
+              clearable
+              disabled
+              :label="'Вид номенклатуры'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.vendor_code"
+              clearable
+              disabled
+              :label="'Артикул'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.unit"
+              clearable
+              disabled
+              :label="'Базовая единица'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.count"
+              clearable
+              disabled
+              :label="'Остаток'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.price"
+              clearable
+              disabled
+              :label="'набор цен'"
+            />
+          </div>
+          <div class="col-12">
+            <BaseInput
+              v-model="data.dimension"
+              clearable
+              disabled
+              :label="'Габарит'"
             />
           </div>
         </div>

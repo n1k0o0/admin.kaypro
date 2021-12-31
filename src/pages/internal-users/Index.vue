@@ -145,7 +145,7 @@
                 v-if="(isAdmin && scope.row.type===internalUserService.MODERATOR)|| isSuperAdmin && (scope.row.type!==internalUserService.SUPER_ADMIN || scope.row.id===auth.id) "
                 :icon="Edit"
                 type="primary"
-                @click="$router.push({name: 'internal-users-edit', params: {id: scope.row.id}})"
+                @click="$router.push({name: 'internal-users-edit', params: {id: scope.row.id,type:scope.row.type}})"
               />
               <el-popconfirm
                 v-if="(scope.row.type===internalUserService.MODERATOR && isAdmin ) || isSuperAdmin && scope.row.type!==internalUserService.SUPER_ADMIN"

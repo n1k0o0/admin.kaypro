@@ -25,6 +25,13 @@
         </div>
         <div class="col-12">
           <BaseInput
+            v-model="contacts.content.instagram"
+            clearable
+            :label="'Instagram'"
+          />
+        </div>
+        <div class="col-12">
+          <BaseInput
             v-model="contacts.content.address"
             clearable
             :label="'Адрес'"
@@ -35,6 +42,13 @@
             v-model="contacts.content.schedule"
             clearable
             :label="'График работы'"
+          />
+        </div>
+        <div class="col-12">
+          <el-checkbox
+            v-model="contacts.content.footer"
+            label="Показывать в футоре"
+            size="large"
           />
         </div>
         <div class="col-12">
@@ -105,6 +119,8 @@ let contacts = ref({
   content: {
     phone: '',
     email: '',
+    footer: false,
+    instagram: '',
     address: '',
     schedule: '',
   },

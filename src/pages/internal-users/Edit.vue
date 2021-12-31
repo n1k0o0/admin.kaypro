@@ -78,37 +78,42 @@
 </template>
 
 <script setup>
-import BaseInput                    from '@/components/base/BaseInput.vue'
-import usePagination                from '@/composables/usePagination'
-import internalUserService          from '@/services/internalUserService'
-import { useStore }                 from 'vuex'
+import BaseInput from '@/components/base/BaseInput.vue'
+import usePagination from '@/composables/usePagination'
+import internalUserService from '@/services/internalUserService'
+import { useStore } from 'vuex'
 
 const { pagination, setPagination, currentPage } = usePagination()
 import { computed, onMounted, ref } from 'vue'
-import { useRoute, useRouter }      from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
 
 const router = useRouter()
-const route  = useRoute()
-const store  = useStore()
+const route = useRoute()
+const store = useStore()
 
 let loading = ref(false)
-let user    = ref({
-  type      : '',
-  phone     : '',
-  email     : '',
-  last_name : '',
+let user = ref({
+  type: '',
+  phone: '',
+  email: '',
+  last_name: '',
   updated_at: '',
   first_name: '',
 })
 
 const auth = computed(() => store.getters['auth/GET_USER'])
+const isAdmin = computed(() => store.getters['auth/IS_ADMIN'])
+const isSuperAdmin = computed(() => store.getters['auth/IS_SUPER_ADMIN'])
 
 onMounted(async () => {
-  if (auth.value.type !== 'admin') {
+  console.log(route.params, 1)
+  if (!isAdmin.value || !((+auth.value.id === +route.params.id || route.params.type === internalUserService.MODERATOR) || (isSuperAdmin.value && route.params.type===internalUserService.ADMIN))) {
+    ElNotification.warning('Нет доступа')
     await router.push({ name: 'dashboard' })
   }
-  const { data: userData } = await internalUserService.getUser(route.params.id)
-  user.value               = userData
+  const { data: userData } = await internalUserService.getUser(10)
+  user.value = userData
 })
 
 const updateUser = async () => {

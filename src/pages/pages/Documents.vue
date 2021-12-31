@@ -10,7 +10,7 @@
     <div class="card-body">
       <div class="row ">
         <template
-          v-for="(context,index) in documents.content"
+          v-for="(context,index) in documents.content.context"
           :key="index"
         >
           <div class="col-12">
@@ -164,10 +164,14 @@ let documents = ref({
   logo: '',
   text_image_1: '',
   text_image_2: '',
-  content: [{
-    title: '',
-    description: '',
-  }],
+  content: {
+    context:[
+      {
+        title: '',
+        description: '',
+      }
+    ]
+  },
   meta_description: '',
   meta_title: '',
   meta_h1: '',
@@ -186,7 +190,7 @@ const handleLogoRemoved = () => {
   documents.value.logo = ''
 }
 const addContext = () => {
-  documents.value.content.push({
+  documents.value.content.context.push({
     title: '',
     description: '',
     meta_title: '',
@@ -197,15 +201,15 @@ const addContext = () => {
   })
 }
 const deleteContext = (index) => {
-  documents.value.content.splice(index, 1)
+  documents.value.content.context.splice(index, 1)
 }
 
 const updateDocument = async () => {
-  let check = documents.value.content.filter((el) => {
+  let check = documents.value.content.context.filter((el) => {
     return (el.title === '' || el.description === '')
   })
   if (check.length) {
-    ElNotification({ type: 'error', title: 'Ошибка', message: 'Название и описание обязательны для заполнения' })
+    ElNotification.error(  'Название и описание обязательны для заполнения' )
     return
   }
   await pagesService.update(documents.value.name, documents.value)

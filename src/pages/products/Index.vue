@@ -22,6 +22,14 @@
               @input="search"
             />
           </div>
+          <div class="col-3">
+            <BaseInput
+              v-model="data.vendor_code"
+              clearable
+              :label="'Артикул'"
+              @input="search"
+            />
+          </div>
         </div>
       </div>
       <div class="card-footer">
@@ -107,6 +115,16 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="updated_at"
+            label="Дата изменения"
+            min-width="155"
+            sortable="custom"
+          >
+            <template #default="scope">
+              {{ $moment(scope.row.updated_at).format('DD-MM-YYYY HH:mm') }}
+            </template>
+          </el-table-column>
+          <el-table-column
             label="Управление"
             width="140"
             class-name="actions"
@@ -153,6 +171,7 @@ let categories = ref([])
 let data = reactive({
   date: '',
   name: '',
+  vendor_code: '',
   sort: 'name',
   sort_type: 'asc',
 })

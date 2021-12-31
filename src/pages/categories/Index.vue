@@ -72,6 +72,18 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="subcategories_count"
+            label="Количество подкатегорий"
+            min-width="150"
+            sortable="custom"
+          />
+          <el-table-column
+            prop="products_count"
+            label="Количество товаров"
+            min-width="150"
+            sortable="custom"
+          />
+          <el-table-column
             prop="subtitle"
             label="Подзаголовок"
             min-width="150"
@@ -93,6 +105,16 @@
             min-width="130"
             sortable="custom"
           />
+          <el-table-column
+            prop="updated_at"
+            label="Дата изменения"
+            min-width="155"
+            sortable="custom"
+          >
+            <template #default="scope">
+              {{ $moment(scope.row.updated_at).format('DD-MM-YYYY HH:mm') }}
+            </template>
+          </el-table-column>
           <el-table-column
             label="Управление"
             width="140"

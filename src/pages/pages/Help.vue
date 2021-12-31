@@ -10,7 +10,7 @@
     <div class="card-body">
       <div class="row ">
         <template
-          v-for="(context,index) in helps.content"
+          v-for="(context,index) in helps.content.context"
           :key="index"
         >
           <div class="col-12">
@@ -44,6 +44,7 @@
               />
             </div>
           </div>
+
           <div class="col-12">
             <BaseInput
               v-model="context.meta_title"
@@ -93,6 +94,13 @@
           </el-button>
         </div>
 
+        <div class="col-12">
+          <el-checkbox
+            v-model="helps.content.footer"
+            label="Показывать в футоре"
+            size="large"
+          />
+        </div>
         <div class="col-12">
           <BaseInput
             v-model="helps.meta_h1"
@@ -163,10 +171,15 @@ let helps = ref({
   logo: '',
   text_image_1: '',
   text_image_2: '',
-  content: [{
-    title: '',
-    description: '',
-  }],
+  content: {
+    footer: false,
+    context:[
+      {
+        title: '',
+        description: '',
+      }
+    ]
+  },
   meta_description: '',
   meta_title: '',
   meta_h1: '',
@@ -185,7 +198,7 @@ const handleLogoRemoved = () => {
   helps.value.logo = ''
 }
 const addContext = () => {
-  helps.value.content.push({
+  helps.value.content.context.push({
     title: '',
     description: '',
     meta_title: '',
@@ -195,14 +208,14 @@ const addContext = () => {
   })
 }
 const deleteContext = (index) => {
-  helps.value.content.splice(index, 1)
+  helps.value.content.context.splice(index, 1)
 }
 const updateHelp = async () => {
-  let check = helps.value.content.filter((el) => {
+  let check = helps.value.content.context.filter((el) => {
     return (el.title === '' || el.description === '')
   })
   if (check.length) {
-    ElNotification({ type: 'error', title: 'Ошибка', message: 'Название и описание обязательны для заполнения' })
+    ElNotification.error( 'Название и описание обязательны для заполнения' )
     return
   }
   await pagesService.update(helps.value.name, helps.value)

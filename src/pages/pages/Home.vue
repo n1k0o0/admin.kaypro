@@ -87,12 +87,12 @@
         </table>
         <el-dialog
           v-model="dialogSlideVisible"
-          title="Shipping address"
+          title="Слайдер"
         >
           <el-form>
             <el-form-item
               label="Заголовок"
-              label-width="120px"
+              label-width="150px"
             >
               <el-input
                 v-model="slide.title"
@@ -101,7 +101,7 @@
             </el-form-item>
             <el-form-item
               label="Подаголовок"
-              label-width="120px"
+              label-width="150px"
             >
               <el-input
                 v-model="slide.subtitle"
@@ -110,7 +110,7 @@
             </el-form-item>
             <el-form-item
               label="Ссылка"
-              label-width="120px"
+              label-width="150px"
             >
               <el-input
                 v-model="slide.link"
@@ -119,7 +119,18 @@
             </el-form-item>
             <el-form-item
               label="Кнопка"
-              label-width="120px"
+              label-width="150px"
+            >
+              <el-checkbox
+                v-model="slide.button"
+                size="medium"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <el-form-item
+              v-show="slide.button"
+              label="Текст кнопки"
+              label-width="150px"
             >
               <el-input
                 v-model="slide.button_text"
@@ -127,8 +138,26 @@
               />
             </el-form-item>
             <el-form-item
+              label="Цвет заголовка"
+              label-width="150px"
+            >
+              <el-color-picker
+                v-model="slide.title_color"
+                class="ml-4 d-block"
+              />
+            </el-form-item>
+            <el-form-item
+              label="Цвет подзаголовка"
+              label-width="150px"
+            >
+              <el-color-picker
+                v-model="slide.subtitle_color"
+                class="ml-4 d-block"
+              />
+            </el-form-item>
+            <el-form-item
               label="Изображение"
-              label-width="120px"
+              label-width="150px"
             >
               <single-image-uploader
                 :hide-upload-icon="!!slide.image "
@@ -185,6 +214,9 @@
                 Артикул
               </th>
               <th scope="col">
+                Фото
+              </th>
+              <th scope="col">
                 Управление
               </th>
             </tr>
@@ -203,6 +235,14 @@
                 <td>{{ element.name }}</td>
                 <td>{{ element.vendor_code }}</td>
                 <td>
+                  <img
+                    style="width:40px;cursor:pointer"
+                    :src="element.logo[0]?.url"
+                    alt=""
+                    @click="showImage(element.logo[0]?.url)"
+                  >
+                </td>
+                <td>
                   <el-button
                     :icon="Delete"
                     type="danger"
@@ -220,44 +260,141 @@
           <h3>Линейка</h3>
         </div>
         <div class="col-12">
-          <BaseInput
-            v-model="homes.content.line.title"
-            clearable
-            :label="'Заголовок'"
-          />
+          <el-button
+            size="small"
+            type="primary"
+            :icon="Plus"
+            @click="addNewLineSlide"
+          >
+            Добавить
+          </el-button>
         </div>
-        <div class="col-12">
-          <BaseInput
-            v-model="homes.content.line.description"
-            clearable
-            type="textarea"
-            :label="'Описание'"
-          />
-        </div>
-        <div class="col-12">
-          <div class="form-group">
-            <label>Фото продукции</label>
-            <single-image-uploader
-              :hide-upload-icon="!!homes.line_image"
-              :image="homes.line_image"
-              :on-change="handleLineImageChanged"
-              :on-remove="handleLineImageRemoved"
-              tip="рек. размер -720х600"
-            />
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group">
-            <label>Фото или видео</label>
-            <single-media-uploader
-              :hide-upload-icon="!!homes.line_media"
-              :image="homes.line_media"
-              :on-change="handleMediaChanged"
-              :on-remove="handleMediaRemoved"
-              tip="рек.размер -720х600"
-            />
-          </div>
-        </div>
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th scope="col">
+                Id
+              </th>
+              <th scope="col">
+                Заголовок
+              </th>
+              <th scope="col">
+                Описание
+              </th>
+              <th scope="col">
+                Ссылка
+              </th>
+              <th scope="col">
+                Управление
+              </th>
+            </tr>
+          </thead>
+          <VueDraggable
+            v-model="homes.slider_line"
+            tag="tbody"
+            item-key="id"
+            @change="onMoveLine"
+          >
+            <template #item="{ element }">
+              <tr>
+                <td>
+                  {{ element.id }}
+                </td>
+                <td>{{ element.title }}</td>
+                <td>{{ element.description }}</td>
+                <td>{{ element.link }}</td>
+                <td>
+                  <el-button
+                    :icon="Edit"
+                    type="primary"
+                    @click="showSlideLineDialog(element)"
+                  />
+                  <el-popconfirm
+                    cancel-button-text="Отмена"
+                    confirm-button-text="Да"
+                    :title="`Вы действительно хотите удалить слайд?`"
+                    @confirm="deleteSlideLine(element)"
+                  >
+                    <template #reference>
+                      <el-button
+                        :icon="Delete"
+                        type="danger"
+                      />
+                    </template>
+                  </el-popconfirm>
+                </td>
+              </tr>
+            </template>
+          </VueDraggable>
+        </table>
+        <el-dialog
+          v-model="dialogLineSlideVisible"
+          title="Линейка"
+        >
+          <el-form>
+            <el-form-item
+              label="Заголовок"
+              label-width="150px"
+            >
+              <el-input
+                v-model="slideLine.title"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <el-form-item
+              label="Описание"
+              label-width="150px"
+            >
+              <el-input
+                v-model="slideLine.description"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <el-form-item
+              label="Ссылка"
+              label-width="150px"
+            >
+              <el-input
+                v-model="slideLine.link"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <el-form-item
+              label="Изображение"
+              label-width="150px"
+            >
+              <single-image-uploader
+                :hide-upload-icon="!!slideLine.image "
+                :image="slideLine.image"
+                :on-change="handleLineSlideChanged"
+                :on-remove="handleLineSlideRemoved"
+                tip="рек. размер - 1440х770"
+              />
+            </el-form-item>
+            <el-form-item
+              label="Фото или видео"
+              label-width="150px"
+            >
+              <single-media-uploader
+                :hide-upload-icon="!!slideLine.media"
+                :image="slideLine.media"
+                :on-change="handleLineMediaSlideChanged"
+                :on-remove="handleLineMediaSlideRemoved"
+                tip="рек.размер -720х600"
+              />
+            </el-form-item>
+          </el-form>
+          <template #footer>
+            <span class="dialog-footer">
+              <el-button @click="dialogLineSlideVisible = false">Отмена</el-button>
+              <el-button
+                type="primary"
+                @click="saveSlideLine"
+              >Сохранить</el-button>
+            </span>
+          </template>
+        </el-dialog>
+
 
         <!--Хиты продаж-->
         <el-divider />
@@ -294,6 +431,9 @@
                 Артикул
               </th>
               <th scope="col">
+                Фото
+              </th>
+              <th scope="col">
                 Управление
               </th>
             </tr>
@@ -312,10 +452,18 @@
                 <td>{{ element.name }}</td>
                 <td>{{ element.vendor_code }}</td>
                 <td>
+                  <img
+                    style="width:40px;cursor:pointer"
+                    :src="element.logo[0]?.url"
+                    alt=""
+                    @click="showImage(element.logo[0]?.url)"
+                  >
+                </td>
+                <td>
                   <el-button
                     :icon="Delete"
                     type="danger"
-                    @click="deleteBestSellerProduct(element)"
+                    @click="deleteNewProduct(element)"
                   />
                 </td>
               </tr>
@@ -475,6 +623,9 @@
                 Артикул
               </th>
               <th scope="col">
+                Фото
+              </th>
+              <th scope="col">
                 Управление
               </th>
             </tr>
@@ -493,10 +644,18 @@
                 <td>{{ element.name }}</td>
                 <td>{{ element.vendor_code }}</td>
                 <td>
+                  <img
+                    style="width:40px;cursor:pointer"
+                    :src="element.logo[0]?.url"
+                    alt=""
+                    @click="showImage(element.logo[0]?.url)"
+                  >
+                </td>
+                <td>
                   <el-button
                     :icon="Delete"
                     type="danger"
-                    @click="deletePopularProduct(element)"
+                    @click="deleteNewProduct(element)"
                   />
                 </td>
               </tr>
@@ -607,15 +766,6 @@
             :label="'SEO keywords'"
           />
         </div>
-
-        <!--Dialog image preview        -->
-        <el-dialog v-model="dialogVisible">
-          <img
-            style="width:100%;"
-            :src="dialogImageUrl"
-            alt=""
-          >
-        </el-dialog>
       </div>
     </div>
     <div class="card-footer d-flex justify-content-end">
@@ -632,6 +782,13 @@
       </el-button-group>
     </div>
   </div>
+  <el-dialog v-model="imageDialogVisible">
+    <img
+      style="width:100%;"
+      :src="dialogImageUrl"
+      alt=""
+    >
+  </el-dialog>
 </template>
 
 <script setup>
@@ -658,20 +815,33 @@ const props = defineProps({
 let loading = ref(false)
 let dialogSlideVisible = ref(false)
 let newSlide = ref(false)
-let dialogVisible = ref(false)
+let newLineSlide = ref(false)
+let imageDialogVisible = ref(false)
+let dialogLineSlideVisible = ref(false)
 let dialogImageUrl = ref('')
 let slide = ref({
-  title:'',
+  subtitle_color: '',
+  title_color: '',
+  title: '',
   subtitle: '',
-  image:'',
-  button_text:'',
-  link:'',
+  image: '',
+  button: 0,
+  button_text: '',
+  link: '',
+})
+let slideLine = ref({
+  description: '',
+  title: '',
+  image: '',
+  media: '',
+  link: '',
 })
 let bestsellers = ref([])
 let products = ref([])
 
 let newProducts = ref([])
 let homes = ref({
+  id: '',
   name: '',
   banner: '',
   text_image1: '',
@@ -683,6 +853,7 @@ let homes = ref({
   instagram: [],
   deleted_files: [],
   slider: [],
+  slider_line: [],
   content: {
     banners: {},
     product: {
@@ -724,33 +895,13 @@ const updateHome = async () => {
     ElNotification.warning('Instagram изображения должен быть минумиум 4, максимум 8')
     return
   }
-  homes.value.content.new_products = homes.value.content.new_products.map(product => ({
-    id: product.id,
-    name: product.name,
-    logo: product.logo ?? '',
-    vendor_code: product.vendor_code
-  }))
-  homes.value.content.bestsellers = homes.value.content.bestsellers.map(product => ({
-    id: product.id,
-    name: product.name,
-    logo: product.logo ?? '',
-    vendor_code: product.vendor_code
-  }))
-  homes.value.content.popular = homes.value.content.popular.map(product => ({
-    id: product.id,
-    name: product.name,
-    logo: product.logo ?? '',
-    vendor_code: product.vendor_code
-  }))
-  homes.value.content.product = ({
-    id: homes.value.content.product.id,
-    name: homes.value.content.product.name,
-    title: homes.value.content.product.title,
-    description: homes.value.content.product.description,
-    color: homes.value.content.product.color,
-    background_color: homes.value.content.product.background_color,
-  })
+
   await pagesService.update(homes.value.name, homes.value)
+}
+
+const showImage = (url) => {
+  imageDialogVisible.value = true
+  dialogImageUrl.value = url
 }
 
 // Line 1
@@ -767,6 +918,61 @@ const handleMediaChanged = (file) => {
 const handleMediaRemoved = async () => {
   homes.value.lineMedia = ''
 }
+const addNewLineSlide = async () => {
+  newLineSlide.value = true
+  slideLine.value = {}
+  dialogLineSlideVisible.value = true
+}
+const handleLineSlideChanged = (file) => {
+  slideLine.value.image_upload = file.raw
+  slideLine.value.image = file
+}
+const handleLineSlideRemoved = async () => {
+  slideLine.value.image_upload = ''
+  slideLine.value.image = ''
+}
+const handleLineMediaSlideChanged = (file) => {
+  slideLine.value.media_upload = file.raw
+  slideLine.value.media = file
+}
+const handleLineMediaSlideRemoved = async () => {
+  slideLine.value.media_upload = ''
+  slideLine.value.media = ''
+}
+const onMoveLine = () => {
+  for (let [index, item] of homes.value.slider_line.entries()) {
+    item.order = index
+  }
+  sliderService.updateOrder(homes.value.slider_line)
+}
+const showSlideLineDialog = async (row) => {
+  newLineSlide.value = false
+  const { button_text, button, subtitle, subtitle_color, ...partialObject } = row
+
+  slideLine.value = partialObject
+  dialogLineSlideVisible.value = true
+}
+const deleteSlideLine = async (slide) => {
+  await sliderService.remove(slide.id)
+  homes.value.slider_line = homes.value.slider_line.filter(el => el.id !== slide.id)
+}
+const saveSlideLine = async () => {
+  // Create
+  slideLine.value.model_id = homes.value.id
+  slideLine.value.model_type = 'App\\Models\\Page'
+  slideLine.value.collection_name = 'line'
+  if (newLineSlide.value) {
+    const { data: data } = await sliderService.create(slideLine.value)
+    homes.value.slider_line.push(data)
+  } else {
+    // Update
+    await sliderService.update(slideLine.value.id, slideLine.value)
+    let foundIndex = homes.value.slider_line.findIndex(x => +x.id === +slideLine.value.id);
+    homes.value.slider_line[foundIndex] = slideLine.value;
+    slideLine.value = []
+  }
+  dialogLineSlideVisible.value = false
+}
 
 // Slider
 const deleteSlide = async (slide) => {
@@ -775,12 +981,11 @@ const deleteSlide = async (slide) => {
 }
 const showSlideDialog = async (row) => {
   newSlide.value = false
-  slide.value = row
+  slide.value = { ...row }
   dialogSlideVisible.value = true
 }
 const addNewSlide = async () => {
   newSlide.value = true
-  slide.value = { model_id: homes.value.id, model_type: 'App\\Models\\Page' }
   dialogSlideVisible.value = true
 }
 const handleSlideChanged = (file) => {
@@ -799,12 +1004,18 @@ const onMove = () => {
 }
 const saveSlide = async () => {
   // Create
+  slide.value.button = +slide.value.button
+  slide.value.model_id = homes.value.id
+  slide.value.model_type = 'App\\Models\\Page'
   if (newSlide.value) {
     const { data: data } = await sliderService.create(slide.value)
     homes.value.slider.push(data)
   } else {
     // Update
     await sliderService.update(slide.value.id, slide.value)
+    let foundIndex = homes.value.slider.findIndex(x => +x.id === +slide.value.id);
+    slide.value.button = !!slide.value.button
+    homes.value.slider[foundIndex] = slide.value;
     slide.value = []
   }
   dialogSlideVisible.value = false
@@ -873,10 +1084,6 @@ const handleBannerRemoved = async () => {
   homes.value.banner_upload = ''
   homes.value.banner = ''
 }
-/*const handlePictureCardPreview=(file) => {
-  dialogImageUrl.value=file.url
-  dialogVisible.value=true
-}*/
 
 // Instagram
 const handleInstagramChanged = (file, fileList) => {

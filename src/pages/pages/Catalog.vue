@@ -419,8 +419,6 @@ onMounted(async () => {
 })
 
 const updateCatalog = async () => {
-  catalogs.value.content.bestsellers=catalogs.value.content.bestsellers.map(product=>({id:product.id, name:product.name,logo:product.logo??'',vendor_code:product.vendor_code}))
-  catalogs.value.content.popular=catalogs.value.content.popular.map(product=>({id:product.id, name:product.name,logo:product.logo??'',vendor_code:product.vendor_code}))
   await pagesService.update(catalogs.value.name, catalogs.value)
 }
 
